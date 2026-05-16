@@ -1,0 +1,13 @@
+{
+  "nodes": [
+    { "id": "server.js", "data": { "label": "server.js" }, "position": { "x": 250, "y": 0 } },
+    { "id": "routes/serviceRoutes.js", "data": { "label": "serviceRoutes.js" }, "position": { "x": 100, "y": 100 } },
+    { "id": "controllers/serviceController.js", "data": { "label": "serviceController.js" }, "position": { "x": 100, "y": 200 } },
+    { "id": "models/User.js", "data": { "label": "User.js" }, "position": { "x": 400, "y": 100 } }
+  ],
+  "edges": [
+    { "id": "e1-2", "source": "server.js", "target": "routes/serviceRoutes.js" },
+    { "id": "e2-3", "source": "routes/serviceRoutes.js", "target": "controllers/serviceController.js" },
+    { "id": "e1-4", "source": "server.js", "target": "models/User.js" }
+  ]
+}

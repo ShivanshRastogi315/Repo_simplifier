@@ -1,0 +1,14 @@
+{
+  "filepath": "controllers/serviceController.js",
+  "summary": "This file contains the core business logic for the local service marketplace. It handles operations like booking a service professional, verifying customer payments, and updating the status of a job.",
+  "keyFunctions": [
+    {
+      "name": "bookService",
+      "purpose": "Validates the user's ID, checks if the local professional is available at the requested time, and creates a new booking record in the database."
+    },
+    {
+      "name": "completeJob",
+      "purpose": "Updates the job status to 'completed' and triggers the payment processing flow."
+    }
+  ]
+}

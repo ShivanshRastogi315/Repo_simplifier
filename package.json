@@ -14,9 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "onboard": "echo '🚀 Launching AI Developer Onboarding Dashboard...' && react-scripts start"
+    "onboard": "node generateData.js && react-scripts start"
   },
   "browserslist": {
     "production": [

@@ -1,22 +1,130 @@
 {
   "nodes": [
-    { 
-      "id": "auth.js", 
-      "position": { "x": 100, "y": 200 },
-      "data": { "label": "auth.js" } 
+    {
+      "id": "app.js",
+      "position": {
+        "x": 120,
+        "y": 220
+      },
+      "data": {
+        "label": "app.js"
+      }
     },
-    { 
-      "id": "app.js", 
-      "position": { "x": 400, "y": 200 },
-      "data": { "label": "app.js" } 
+    {
+      "id": "auth.js",
+      "position": {
+        "x": 380,
+        "y": 220
+      },
+      "data": {
+        "label": "auth.js"
+      }
+    },
+    {
+      "id": "Dashboard.jsx",
+      "position": {
+        "x": 640,
+        "y": 220
+      },
+      "data": {
+        "label": "Dashboard.jsx"
+      }
+    },
+    {
+      "id": "Hangar.jsx",
+      "position": {
+        "x": 900,
+        "y": 220
+      },
+      "data": {
+        "label": "Hangar.jsx"
+      }
+    },
+    {
+      "id": "Landing.jsx",
+      "position": {
+        "x": 1160,
+        "y": 220
+      },
+      "data": {
+        "label": "Landing.jsx"
+      }
+    },
+    {
+      "id": "Login (2).jsx",
+      "position": {
+        "x": 1420,
+        "y": 220
+      },
+      "data": {
+        "label": "Login (2).jsx"
+      }
+    },
+    {
+      "id": "Login.jsx",
+      "position": {
+        "x": 1680,
+        "y": 220
+      },
+      "data": {
+        "label": "Login.jsx"
+      }
     }
   ],
   "edges": [
-    { 
-      "id": "e1", 
-      "source": "auth.js", 
-      "target": "app.js",
-      "animated": true
+    {
+      "id": "e0",
+      "source": "app.js",
+      "target": "auth.js",
+      "animated": true,
+      "style": {
+        "stroke": "#38bdf8"
+      }
+    },
+    {
+      "id": "e1",
+      "source": "auth.js",
+      "target": "Dashboard.jsx",
+      "animated": true,
+      "style": {
+        "stroke": "#38bdf8"
+      }
+    },
+    {
+      "id": "e2",
+      "source": "Dashboard.jsx",
+      "target": "Hangar.jsx",
+      "animated": true,
+      "style": {
+        "stroke": "#38bdf8"
+      }
+    },
+    {
+      "id": "e3",
+      "source": "Hangar.jsx",
+      "target": "Landing.jsx",
+      "animated": true,
+      "style": {
+        "stroke": "#38bdf8"
+      }
+    },
+    {
+      "id": "e4",
+      "source": "Landing.jsx",
+      "target": "Login (2).jsx",
+      "animated": true,
+      "style": {
+        "stroke": "#38bdf8"
+      }
+    },
+    {
+      "id": "e5",
+      "source": "Login (2).jsx",
+      "target": "Login.jsx",
+      "animated": true,
+      "style": {
+        "stroke": "#38bdf8"
+      }
     }
   ]
 }

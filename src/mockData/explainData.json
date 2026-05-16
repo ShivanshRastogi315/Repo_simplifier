@@ -1,21 +1,99 @@
 [
   {
     "filepath": "app.js",
-    "summary": "This file is the main entry point of the application. It imports the authentication module and initiates the application startup process. When executed, it attempts to log in a user with hardcoded credentials ('admin' and 'password123') and displays appropriate messages based on whether the login succeeds or fails. If authentication is successful, it welcomes the user to the dashboard; otherwise, it denies access.",
+    "summary": "The `app.js` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 1 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers.",
     "keyFunctions": [
       {
-        "name": "startApp",
-        "purpose": "Initializes the application by logging a startup message, attempting to authenticate a user with predefined credentials, and displaying either a welcome message for successful login or an access denied message for failed authentication."
+        "name": "startApp()",
+        "purpose": "Coordinates the execution cycle for the local `startApp` workflow handle inside the runtime sequence."
       }
     ]
   },
   {
     "filepath": "auth.js",
-    "summary": "This file serves as the authentication module for the application. It provides user login functionality by simulating database verification. The module exports a single function that validates user credentials against hardcoded values. Currently, it only accepts 'admin' as the username and 'password123' as the password, returning true for valid credentials and false otherwise.",
+    "summary": "The `auth.js` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 1 unique execution routines. Deep scanning indicates a low-overhead utility model designed to maintain clean separation of concerns within neighboring logical modules.",
     "keyFunctions": [
       {
-        "name": "loginUser",
-        "purpose": "Validates user credentials by comparing the provided username and password against hardcoded values. Returns true if both username is 'admin' and password is 'password123', otherwise returns false to indicate authentication failure."
+        "name": "loginUser()",
+        "purpose": "Coordinates the execution cycle for the local `loginUser` workflow handle inside the runtime sequence."
+      }
+    ]
+  },
+  {
+    "filepath": "Dashboard.jsx",
+    "summary": "The `Dashboard.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 5 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines as well as payload encryption verification protocols.",
+    "keyFunctions": [
+      {
+        "name": "Dashboard()",
+        "purpose": "Coordinates the execution cycle for the local `Dashboard` workflow handle inside the runtime sequence."
+      },
+      {
+        "name": "handleAnswerSelect()",
+        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
+      },
+      {
+        "name": "closeQuiz()",
+        "purpose": "Coordinates the execution cycle for the local `closeQuiz` workflow handle inside the runtime sequence."
+      },
+      {
+        "name": "handleLogout()",
+        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
+      },
+      {
+        "name": "getRegionProgress()",
+        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
+      }
+    ]
+  },
+  {
+    "filepath": "Hangar.jsx",
+    "summary": "The `Hangar.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 2 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines.",
+    "keyFunctions": [
+      {
+        "name": "Hangar()",
+        "purpose": "Coordinates the execution cycle for the local `Hangar` workflow handle inside the runtime sequence."
+      },
+      {
+        "name": "renderShopItem()",
+        "purpose": "Coordinates the execution cycle for the local `renderShopItem` workflow handle inside the runtime sequence."
+      }
+    ]
+  },
+  {
+    "filepath": "Landing.jsx",
+    "summary": "The `Landing.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 1 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as stateful UI component rendering rendering cascades.",
+    "keyFunctions": [
+      {
+        "name": "Landing()",
+        "purpose": "Coordinates the execution cycle for the local `Landing` workflow handle inside the runtime sequence."
+      }
+    ]
+  },
+  {
+    "filepath": "Login (2).jsx",
+    "summary": "The `Login (2).jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 2 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines.",
+    "keyFunctions": [
+      {
+        "name": "Login()",
+        "purpose": "Coordinates the execution cycle for the local `Login` workflow handle inside the runtime sequence."
+      },
+      {
+        "name": "handleChange()",
+        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
+      }
+    ]
+  },
+  {
+    "filepath": "Login.jsx",
+    "summary": "The `Login.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 2 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines.",
+    "keyFunctions": [
+      {
+        "name": "Login()",
+        "purpose": "Coordinates the execution cycle for the local `Login` workflow handle inside the runtime sequence."
+      },
+      {
+        "name": "handleChange()",
+        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
       }
     ]
   }

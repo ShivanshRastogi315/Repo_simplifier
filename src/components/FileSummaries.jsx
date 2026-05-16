@@ -9,19 +9,28 @@ export default function FileSummaries({ selectedFile }) {
 
   return (
     <div style={{ 
-    padding: '20px 20px 30px 20px', /* Added 30px padding to the bottom to push content up */
-    color: '#fff', 
-    height: '100%', 
-    display: 'flex', 
-    flexDirection: 'column', 
-    boxSizing: 'border-box' 
-  }}>
+      padding: '20px 20px 30px 20px', 
+      color: '#fff', 
+      height: 'calc(100vh - 65px)', /* Matches the left column baseline */
+      display: 'flex', 
+      flexDirection: 'column', 
+      boxSizing: 'border-box',
+      overflow: 'hidden'
+    }}>
       
-      {/* File Inspector Segment */}
-      <div style={{ flex: 1 }}>
-        <h2 style={{ fontSize: '1.4rem', marginBottom: '15px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700' }}>
-          <FileCode color="#38bdf8" /> File Inspector
-        </h2>
+      {/* Top Segment Header */}
+      <h2 style={{ fontSize: '1.4rem', marginBottom: '15px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700', flexShrink: 0 }}>
+        <FileCode color="#38bdf8" /> File Inspector
+      </h2>
+      
+      {/* Scrollable File Content Box */}
+      <div style={{ 
+        flex: 1, 
+        overflowY: 'auto',          /* FIX: Forces scrollbar when data overflows */
+        maxHeight: 'calc(100vh - 340px)', /* FIX: Strictly limits height to preserve ticket panel spacing */
+        marginBottom: '15px', 
+        paddingRight: '6px' 
+      }}>
         
         {fileInfo ? (
           <div>
@@ -38,7 +47,7 @@ export default function FileSummaries({ selectedFile }) {
             {fileInfo.keyFunctions.map((func, idx) => (
               <div key={idx} style={{ background: '#0f172a', padding: '10px', borderRadius: '6px', marginBottom: '10px', borderLeft: '3px solid #38bdf8' }}>
                 <div style={{ fontWeight: 'bold', fontSize: '0.8rem', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'monospace' }}>
-                  <Code size={14} color="#4ade80" /> {func.name}()
+                  <Code size={14} color="#4ade80" /> {func.name}
                 </div>
                 <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '4px', lineHeight: '1.3' }}>
                   {func.purpose}
@@ -53,10 +62,10 @@ export default function FileSummaries({ selectedFile }) {
         )}
       </div>
 
-      <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.08)' }} />
+      <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.08)', margin: '0 0 15px 0', flexShrink: 0 }} />
 
-      {/* First Ticket Simulator Segment */}
-      <div style={{ background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.2)', padding: '15px', borderRadius: '12px' }}>
+      {/* Bottom Segment: First Ticket Simulator */}
+      <div style={{ background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.2)', padding: '15px', borderRadius: '12px', flexShrink: 0 }}>
         <h3 style={{ fontSize: '1.05rem', margin: '0 0 5px 0', display: 'flex', alignItems: 'center', gap: '8px', color: '#fff', fontWeight: '700' }}>
           <CheckSquare size={18} color="#818cf8" /> "First Ticket" Simulator
         </h3>

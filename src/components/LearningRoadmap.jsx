@@ -17,15 +17,21 @@ export default function LearningRoadmap({ onSelectFile, selectedFile }) {
 
   return (
     <div style={{ 
-    padding: '20px 20px 30px 20px', /* Added 30px padding to the bottom to push content up */
-    color: '#fff', 
-    height: '100%', 
-    display: 'flex', 
-    flexDirection: 'column', 
-    boxSizing: 'border-box' 
-  }}>
+      padding: '20px 20px 30px 20px', 
+      color: '#fff', 
+      height: 'calc(100vh - 65px)', /* FIX: Locks the sidebar exactly to the workspace viewport height */
+      display: 'flex', 
+      flexDirection: 'column', 
+      boxSizing: 'border-box',
+      overflow: 'hidden'            /* FIX: Prevents the parent container from stretching down */
+    }}>
       {/* Learning Roadmap Segment */}
-      <div>
+      <div style={{ 
+        flex: 1, 
+        overflowY: 'auto',          /* Enforces the vertical scrollbar */
+        marginBottom: '15px', 
+        paddingRight: '6px' 
+      }}>
         <h2 style={{ fontSize: '1.4rem', marginBottom: '5px', display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700' }}>
           <Compass color="#48bb78" /> {roadmapData.roadmapTitle}
         </h2>

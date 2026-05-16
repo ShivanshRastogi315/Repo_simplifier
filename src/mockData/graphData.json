@@ -1,9 +1,22 @@
 {
   "nodes": [
-    { "id": "app.js", "data": { "label": "app.js" } },
-    { "id": "auth.js", "data": { "label": "auth.js" } }
+    { 
+      "id": "auth.js", 
+      "position": { "x": 100, "y": 200 },
+      "data": { "label": "auth.js" } 
+    },
+    { 
+      "id": "app.js", 
+      "position": { "x": 400, "y": 200 },
+      "data": { "label": "app.js" } 
+    }
   ],
   "edges": [
-    { "id": "e1", "source": "app.js", "target": "auth.js" }
+    { 
+      "id": "e1", 
+      "source": "auth.js", 
+      "target": "app.js",
+      "animated": true
+    }
   ]
 }

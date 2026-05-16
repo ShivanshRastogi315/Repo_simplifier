@@ -1,0 +1,11 @@
+{
+  "status": "Ready to Fix",
+  "detectedFiles": ["package.json"],
+  "issuesFound": [
+    {
+      "type": "Dependency Mismatch",
+      "description": "Legacy peer dependency conflicts detected within Webpack configuration.",
+      "fixCommand": "npm install --legacy-peer-deps"
+    }
+  ]
+}

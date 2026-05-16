@@ -1,0 +1,7 @@
+{
+  "ticketId": "AEGIS-001",
+  "title": "Enforce Strict 8-Character Password Validation",
+  "difficulty": "Good First Issue",
+  "context": "The `auth.js` module currently handles basic string verification for logins but permits weaker hardcoded options.",
+  "instructions": "Locate `loginUser()` in `auth.js`. Modify the conditional check to ensure `password.length >= 8` before evaluating credentials. Test verification status by starting the app interface."
+}

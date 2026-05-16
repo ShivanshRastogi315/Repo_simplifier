@@ -1,47 +1,101 @@
 {
-  "roadmapTitle": "Automated Repository Onboarding Map",
+  "roadmapTitle": "Hierarchical Architecture Map",
   "steps": [
     {
       "stepNumber": 1,
-      "title": "Evaluate app Architecture",
-      "targetFile": "app.js",
-      "description": "The `app.js` module encapsulates localized software rules handling the system's operational lifecycle."
+      "title": "Explore eslint",
+      "targetFile": "AI-Study-Planner/client/eslint.config.js",
+      "description": "The `eslint.config.js` module encapsulates localized software operations. "
     },
     {
       "stepNumber": 2,
-      "title": "Evaluate auth Architecture",
-      "targetFile": "auth.js",
-      "description": "The `auth.js` module encapsulates localized software rules handling the system's operational lifecycle."
+      "title": "Explore vite",
+      "targetFile": "AI-Study-Planner/client/vite.config.js",
+      "description": "The `vite.config.js` module encapsulates localized software operations. "
     },
     {
       "stepNumber": 3,
-      "title": "Evaluate Dashboard Architecture",
-      "targetFile": "Dashboard.jsx",
-      "description": "The `Dashboard.jsx` module encapsulates localized software rules handling the system's operational lifecycle."
+      "title": "Explore App",
+      "targetFile": "AI-Study-Planner/client/src/App.jsx",
+      "description": "The `App.jsx` module encapsulates localized software operations. It coordinates 4 behavioral systems handlers."
     },
     {
       "stepNumber": 4,
-      "title": "Evaluate Hangar Architecture",
-      "targetFile": "Hangar.jsx",
-      "description": "The `Hangar.jsx` module encapsulates localized software rules handling the system's operational lifecycle."
+      "title": "Explore main",
+      "targetFile": "AI-Study-Planner/client/src/main.jsx",
+      "description": "The `main.jsx` module encapsulates localized software operations. "
     },
     {
       "stepNumber": 5,
-      "title": "Evaluate Landing Architecture",
-      "targetFile": "Landing.jsx",
-      "description": "The `Landing.jsx` module encapsulates localized software rules handling the system's operational lifecycle."
+      "title": "Explore Campaign",
+      "targetFile": "AI-Study-Planner/models/Campaign.js",
+      "description": "The `Campaign.js` module encapsulates localized software operations. "
     },
     {
       "stepNumber": 6,
-      "title": "Evaluate Login (2) Architecture",
-      "targetFile": "Login (2).jsx",
-      "description": "The `Login (2).jsx` module encapsulates localized software rules handling the system's operational lifecycle."
+      "title": "Explore User",
+      "targetFile": "AI-Study-Planner/models/User.js",
+      "description": "The `User.js` module encapsulates localized software operations. "
     },
     {
       "stepNumber": 7,
-      "title": "Evaluate Login Architecture",
-      "targetFile": "Login.jsx",
-      "description": "The `Login.jsx` module encapsulates localized software rules handling the system's operational lifecycle."
+      "title": "Explore server",
+      "targetFile": "AI-Study-Planner/server.js",
+      "description": "The `server.js` module encapsulates localized software operations. "
+    },
+    {
+      "stepNumber": 8,
+      "title": "Explore Dashboard",
+      "targetFile": "AI-Study-Planner/client/src/pages/Dashboard.jsx",
+      "description": "The `Dashboard.jsx` module encapsulates localized software operations. It coordinates 5 behavioral systems handlers."
+    },
+    {
+      "stepNumber": 9,
+      "title": "Explore Hangar",
+      "targetFile": "AI-Study-Planner/client/src/pages/Hangar.jsx",
+      "description": "The `Hangar.jsx` module encapsulates localized software operations. It coordinates 2 behavioral systems handlers."
+    },
+    {
+      "stepNumber": 10,
+      "title": "Explore Landing",
+      "targetFile": "AI-Study-Planner/client/src/pages/Landing.jsx",
+      "description": "The `Landing.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers."
+    },
+    {
+      "stepNumber": 11,
+      "title": "Explore Login",
+      "targetFile": "AI-Study-Planner/client/src/pages/Login.jsx",
+      "description": "The `Login.jsx` module encapsulates localized software operations. It coordinates 2 behavioral systems handlers."
+    },
+    {
+      "stepNumber": 12,
+      "title": "Explore Register",
+      "targetFile": "AI-Study-Planner/client/src/pages/Register.jsx",
+      "description": "The `Register.jsx` module encapsulates localized software operations. It coordinates 2 behavioral systems handlers."
+    },
+    {
+      "stepNumber": 13,
+      "title": "Explore CyberNexusBackground",
+      "targetFile": "AI-Study-Planner/client/src/components/CyberNexusBackground.jsx",
+      "description": "The `CyberNexusBackground.jsx` module encapsulates localized software operations. It coordinates 5 behavioral systems handlers."
+    },
+    {
+      "stepNumber": 14,
+      "title": "Explore HyperspaceBackground",
+      "targetFile": "AI-Study-Planner/client/src/components/HyperspaceBackground.jsx",
+      "description": "The `HyperspaceBackground.jsx` module encapsulates localized software operations. It coordinates 3 behavioral systems handlers."
+    },
+    {
+      "stepNumber": 15,
+      "title": "Explore SpaceBattleBackground",
+      "targetFile": "AI-Study-Planner/client/src/components/SpaceBattleBackground.jsx",
+      "description": "The `SpaceBattleBackground.jsx` module encapsulates localized software operations. It coordinates 7 behavioral systems handlers."
+    },
+    {
+      "stepNumber": 16,
+      "title": "Explore test_db",
+      "targetFile": "AI-Study-Planner/test_db.js",
+      "description": "The `test_db.js` module encapsulates localized software operations. "
     }
   ]
 }

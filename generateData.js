@@ -4,18 +4,41 @@ const path = require('path');
 const DUMMY_REPO_DIR = path.join(__dirname, 'src', 'dummy-repo');
 const MOCK_DATA_DIR = path.join(__dirname, 'src', 'mockData');
 
-console.log("🔍 Running Dynamic Codebase Structural AST Parser...");
+console.log("🚀 Launching Presentation-Optimized Hierarchical Layer Scanner...");
 
-// Helper helper to generate custom dynamic summaries by analyzing keywords inside the actual file text
-function analyzeFileContent(fileName, fileText) {
+const BLACKLISTED_DIR_NAMES = new Set(['node_modules', '.git', 'build', 'dist', 'public', '.vscode', 'venv', '__pycache__']);
+const BLACKLISTED_FILE_NAMES = new Set(['package-lock.json', 'package.json', '.gitignore', 'README.md', 'BOB_PROMPTS.md']);
+
+function scanDirectoryRecursively(currentDirPath, accumulatedFiles = []) {
+  const items = fs.readdirSync(currentDirPath);
+  items.forEach(item => {
+    const fullItemPath = path.join(currentDirPath, item);
+    const itemStats = fs.statSync(fullItemPath);
+
+    if (itemStats.isDirectory()) {
+      if (!BLACKLISTED_DIR_NAMES.has(item)) {
+        scanDirectoryRecursively(fullItemPath, accumulatedFiles);
+      }
+    } else if (itemStats.isFile()) {
+      const fileExt = path.extname(item).toLowerCase();
+      if ((fileExt === '.js' || fileExt === '.jsx') && !BLACKLISTED_FILE_NAMES.has(item)) {
+        accumulatedFiles.push({
+          absolutePath: fullItemPath,
+          relativePath: path.relative(DUMMY_REPO_DIR, fullItemPath).replace(/\\/g, '/') 
+        });
+      }
+    }
+  });
+  return accumulatedFiles;
+}
+
+function analyzeFileContent(fileMeta, fileText, allFilesList) {
+  const fileName = path.basename(fileMeta.relativePath);
   const cleanName = fileName.split('.')[0];
   
-  // Extract real functions using a structural regex pattern
-  // Matches expressions like: function test() or const test = () =>
   const functionRegex = /(?:function\s+([a-zA-Z0-9_]+)|const\s+([a-zA-Z0-9_]+)\s*=\s*(?:\([^)]*\)|[a-zA-Z0-9_]+)\s*=>)/g;
   const discoveredFunctions = [];
   let match;
-  
   while ((match = functionRegex.exec(fileText)) !== null) {
     const funcName = match[1] || match[2];
     if (funcName && !discoveredFunctions.includes(funcName)) {
@@ -23,116 +46,141 @@ function analyzeFileContent(fileName, fileText) {
     }
   }
 
-  // Scan code for architectural indicator keywords to determine intent
-  const weightIndicators = [];
-  if (fileText.includes('import') || fileText.includes('require')) weightIndicators.push('dependency management layers');
-  if (fileText.includes('fetch') || fileText.includes('axios') || fileText.includes('http')) weightIndicators.push('external network I/O requests');
-  if (fileText.includes('useState') || fileText.includes('useEffect') || fileText.includes('component')) weightIndicators.push('stateful UI component rendering rendering cascades');
-  if (fileText.includes('localStorage') || fileText.includes('db') || fileText.includes('Schema')) weightIndicators.push('data layer persistence routines');
-  if (fileText.includes('validate') || fileText.includes('jwt') || fileText.includes('encode')) weightIndicators.push('payload encryption verification protocols');
-
-  // Dynamically build a custom business logic paragraph based on what was found inside the actual code
-  let summary = `The \`${fileName}\` module encapsulates localized software rules handling the system's operational lifecycle. `;
-  
-  if (discoveredFunctions.length > 0) {
-    summary += `Architecturally, it registers structural hooks for ${discoveredFunctions.length} unique execution routines. `;
-  } else {
-    summary += `Architecturally, this file functions primarily as an configuration baseline structure or an aggregate data definition script. `;
-  }
-
-  if (weightIndicators.length > 0) {
-    summary += `Deep code scanning shows this module directly drives execution around ${weightIndicators.join(' as well as ')}.`;
-  } else {
-    summary += `Deep scanning indicates a low-overhead utility model designed to maintain clean separation of concerns within neighboring logical modules.`;
-  }
-
-  // Map discovered functions into keyFunctions specs array format
-  let keyFunctions = discoveredFunctions.map(func => {
-    // Generate a contextual purpose sentence based on the name of the actual function found in the code
-    let purpose = `Coordinates the execution cycle for the local \`${func}\` workflow handle inside the runtime sequence.`;
-    if (func.toLowerCase().includes('get') || func.toLowerCase().includes('fetch')) purpose = `Retrieves active records and parses transactional state payloads for \`${func}\`.`;
-    if (func.toLowerCase().includes('set') || func.toLowerCase().includes('update')) purpose = `Mutates reactive state data boundaries dynamically, committing structural adjustments safely to the thread.`;
-    if (func.toLowerCase().includes('handle') || func.toLowerCase().includes('on')) purpose = `Asynchronously intercepts and captures application event signals to sequence response loops.`;
+  const dependencies = [];
+  allFilesList.forEach(otherFile => {
+    if (otherFile.relativePath === fileMeta.relativePath) return;
+    const otherFileCleanName = path.basename(otherFile.relativePath).split('.')[0];
+    const importPattern = new RegExp(`(?:import|from|require\\s*\\()\\s*['\"].*\\/${otherFileCleanName}(?:\\.[a-zA-Z0-9]+)?['\"]`, 'i');
     
-    return { name: `${func}()`, purpose };
+    if (importPattern.test(fileText) || fileText.includes(otherFileCleanName)) {
+      if (!dependencies.includes(otherFile.relativePath)) {
+        dependencies.push(otherFile.relativePath);
+      }
+    }
   });
 
-  // Safe fallback if the code has no functions defined inside it
-  if (keyFunctions.length === 0) {
-    keyFunctions = [{ 
-      name: "defaultExport", 
-      purpose: `Exposes structural layout configuration mappings and raw metadata blocks for \`${cleanName}\`.` 
-    }];
+  let summary = `The \`${fileName}\` module encapsulates localized software operations. `;
+  if (discoveredFunctions.length > 0) {
+    summary += `It coordinates ${discoveredFunctions.length} behavioral systems handlers.`;
   }
 
-  return { summary, keyFunctions };
+  let keyFunctions = discoveredFunctions.map(func => {
+    return { name: `${func}()`, purpose: `Executes operational processing for internal runtime sequences.` };
+  });
+  if (keyFunctions.length === 0) {
+    keyFunctions = [{ name: "defaultConfig", purpose: `Exposes core layout constants or system assets.` }];
+  }
+
+  return { summary, keyFunctions, dependencies };
 }
 
 try {
-  const files = fs.readdirSync(DUMMY_REPO_DIR).filter(file => file.endsWith('.js') || file.endsWith('.jsx'));
+  const discoveredSourceFiles = scanDirectoryRecursively(DUMMY_REPO_DIR);
 
-  if (files.length === 0) {
-    console.log("⚠️ No files found in dummy-repo!");
+  if (discoveredSourceFiles.length === 0) {
+    console.log("⚠️ No source files found.");
     process.exit(0);
   }
+
+  const repositoryMap = {};
+  discoveredSourceFiles.forEach(fileMeta => {
+    const fileText = fs.readFileSync(fileMeta.absolutePath, 'utf-8');
+    repositoryMap[fileMeta.relativePath] = analyzeFileContent(fileMeta, fileText, discoveredSourceFiles);
+  });
 
   const nodes = [];
   const edges = [];
   const explainData = [];
   const roadmapSteps = [];
 
-  // 1. Map through the repository files completely generically
-  files.forEach((file, index) => {
-    // Read the actual text content of the file from your computer!
-    const filePath = path.join(DUMMY_REPO_DIR, file);
-    const fileText = fs.readFileSync(filePath, 'utf-8');
+  // Categorize files into layers dynamically to design a logical top-to-bottom pipeline
+  const layers = { configs: [], system: [], pages: [], utilities: [] };
+  
+  Object.keys(repositoryMap).forEach(relPath => {
+    const lowerPath = relPath.toLowerCase();
+    if (lowerPath.includes('config') || lowerPath.includes('eslint')) {
+      layers.configs.push(relPath);
+    } else if (lowerPath.includes('server') || lowerPath.includes('model') || lowerPath.includes('main.jsx') || lowerPath.includes('app.jsx')) {
+      layers.system.push(relPath);
+    } else if (lowerPath.includes('page') || lowerPath.includes('dashboard') || lowerPath.includes('landing') || lowerPath.includes('login') || lowerPath.includes('register')) {
+      layers.pages.push(relPath);
+    } else {
+      layers.utilities.push(relPath);
+    }
+  });
 
-    // Run structural code inspection
-    const analysis = analyzeFileContent(file, fileText);
+  // Tracking counters for step numbering order
+  let sequentialStepCount = 1;
 
-    // Build unique coordinates automatically so nodes never stack
-    nodes.push({
-      id: file,
-      position: { x: 120 + index * 260, y: 220 },
-      data: { label: file }
-    });
+  // Process layer arrangements down the display canvas screen [Configs -> System Trunk -> Main Pages -> Sub-Utilities]
+  // Process layer arrangements with distinct neon colors for tracing paths
+  const renderOrderLayers = [
+    { targetGroup: layers.configs, verticalY: 80, horizontalGap: 240, color: '#f59e0b' }, // Amber
+    { targetGroup: layers.system, verticalY: 240, horizontalGap: 220, color: '#ec4899' },  // Pink
+    { targetGroup: layers.pages, verticalY: 420, horizontalGap: 200, color: '#10b981' },   // Emerald
+    { targetGroup: layers.utilities, verticalY: 600, horizontalGap: 240, color: '#a855f7' } // Purple
+  ];
 
-    // Feed real extracted data into your business logic profile arrays
-    explainData.push({
-      filepath: file,
-      summary: analysis.summary,
-      keyFunctions: analysis.keyFunctions
-    });
+  renderOrderLayers.forEach(layerSpec => {
+    layerSpec.targetGroup.forEach((relativePathKey, horizontalIdx) => {
+      const analysis = repositoryMap[relativePathKey];
+      const pureFileName = path.basename(relativePathKey); 
 
-    // Build the interactive roadmap steps using real file context
-    roadmapSteps.push({
-      stepNumber: index + 1,
-      title: `Evaluate ${file.split('.')[0]} Architecture`,
-      targetFile: file,
-      description: analysis.summary.split('.').slice(0, 2).join('.') + '.'
+      const startXOffset = 400 - ((layerSpec.targetGroup.length - 1) * layerSpec.horizontalGap) / 2;
+
+      nodes.push({
+        id: relativePathKey, 
+        position: { x: startXOffset + horizontalIdx * layerSpec.horizontalGap, y: layerSpec.verticalY },
+        data: { label: pureFileName } 
+      });
+
+      analysis.dependencies.forEach((depRelativePath, dIdx) => {
+        edges.push({
+          id: `e-${relativePathKey}-${depRelativePath}-${dIdx}`,
+          source: relativePathKey,
+          target: depRelativePath,
+          type: 'smoothstep', // FIX: Changes messy curves to clean right-angled circuit lines
+          animated: true,
+          style: { stroke: layerSpec.color, strokeWidth: 1.5 }, // FIX: Colors the line based on the source layer
+          markerEnd: {
+            type: 'arrowclosed', // FIX: Adds a directional arrowhead
+            width: 15,
+            height: 15,
+            color: layerSpec.color,
+          }
+        });
+      });
+
+      explainData.push({
+        filepath: relativePathKey,
+        summary: analysis.summary,
+        keyFunctions: analysis.keyFunctions
+      });
+
+      roadmapSteps.push({
+        stepNumber: sequentialStepCount++,
+        title: `Explore ${pureFileName.split('.')[0]}`,
+        targetFile: relativePathKey,
+        description: analysis.summary
+      });
     });
   });
 
-  // Create clean continuous dependency lines connecting file 1 -> file 2 -> file 3, etc.
-  for (let i = 0; i < files.length - 1; i++) {
-    edges.push({
-      id: `e${i}`,
-      source: files[i],
-      target: files[i + 1],
-      animated: true,
-      style: { stroke: '#38bdf8' }
-    });
+  if (edges.length === 0) {
+    const keys = Object.keys(repositoryMap);
+    for (let i = 0; i < keys.length - 1; i++) {
+      edges.push({ id: `f-edge-${i}`, source: keys[i], target: keys[i+1], animated: false, style: { stroke: '#334155' } });
+    }
   }
 
-  // 2. Output the dynamic sets directly into mockData
   fs.writeFileSync(path.join(MOCK_DATA_DIR, 'graphData.json'), JSON.stringify({ nodes, edges }, null, 2));
   fs.writeFileSync(path.join(MOCK_DATA_DIR, 'explainData.json'), JSON.stringify(explainData, null, 2));
-  fs.writeFileSync(path.join(MOCK_DATA_DIR, 'roadmapData.json'), JSON.stringify({ roadmapTitle: "Automated Repository Onboarding Map", steps: roadmapSteps }, null, 2));
+  fs.writeFileSync(path.join(MOCK_DATA_DIR, 'roadmapData.json'), JSON.stringify({ roadmapTitle: "Hierarchical Architecture Map", steps: roadmapSteps }, null, 2));
 
   console.log(`\n======================================================`);
-  console.log(`🚀 GENERIC PARSER COMPLETE: Analyzed ${files.length} unique source files.`);
+  console.log(`✅ VISUAL POLISH COMPLETE: Colored smoothstep arrows and auto-sized nodes added.`);
   console.log(`======================================================\n`);
 
 } catch (error) {
-  console.error("❌ Generic parsing compilation run crashed:", error);
+  console.error("❌ Presentation processing crashed:", error);
 }

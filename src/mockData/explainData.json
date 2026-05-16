@@ -1,99 +1,249 @@
 [
   {
-    "filepath": "app.js",
-    "summary": "The `app.js` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 1 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers.",
+    "filepath": "AI-Study-Planner/client/eslint.config.js",
+    "summary": "The `eslint.config.js` module encapsulates localized software operations. ",
     "keyFunctions": [
       {
-        "name": "startApp()",
-        "purpose": "Coordinates the execution cycle for the local `startApp` workflow handle inside the runtime sequence."
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
       }
     ]
   },
   {
-    "filepath": "auth.js",
-    "summary": "The `auth.js` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 1 unique execution routines. Deep scanning indicates a low-overhead utility model designed to maintain clean separation of concerns within neighboring logical modules.",
+    "filepath": "AI-Study-Planner/client/vite.config.js",
+    "summary": "The `vite.config.js` module encapsulates localized software operations. ",
     "keyFunctions": [
       {
-        "name": "loginUser()",
-        "purpose": "Coordinates the execution cycle for the local `loginUser` workflow handle inside the runtime sequence."
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
       }
     ]
   },
   {
-    "filepath": "Dashboard.jsx",
-    "summary": "The `Dashboard.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 5 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines as well as payload encryption verification protocols.",
+    "filepath": "AI-Study-Planner/client/src/App.jsx",
+    "summary": "The `App.jsx` module encapsulates localized software operations. It coordinates 4 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "Login()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "Register()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "Dashboard()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "App()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "AI-Study-Planner/client/src/main.jsx",
+    "summary": "The `main.jsx` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
+      }
+    ]
+  },
+  {
+    "filepath": "AI-Study-Planner/models/Campaign.js",
+    "summary": "The `Campaign.js` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
+      }
+    ]
+  },
+  {
+    "filepath": "AI-Study-Planner/models/User.js",
+    "summary": "The `User.js` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
+      }
+    ]
+  },
+  {
+    "filepath": "AI-Study-Planner/server.js",
+    "summary": "The `server.js` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
+      }
+    ]
+  },
+  {
+    "filepath": "AI-Study-Planner/client/src/pages/Dashboard.jsx",
+    "summary": "The `Dashboard.jsx` module encapsulates localized software operations. It coordinates 5 behavioral systems handlers.",
     "keyFunctions": [
       {
         "name": "Dashboard()",
-        "purpose": "Coordinates the execution cycle for the local `Dashboard` workflow handle inside the runtime sequence."
+        "purpose": "Executes operational processing for internal runtime sequences."
       },
       {
         "name": "handleAnswerSelect()",
-        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
+        "purpose": "Executes operational processing for internal runtime sequences."
       },
       {
         "name": "closeQuiz()",
-        "purpose": "Coordinates the execution cycle for the local `closeQuiz` workflow handle inside the runtime sequence."
+        "purpose": "Executes operational processing for internal runtime sequences."
       },
       {
         "name": "handleLogout()",
-        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
+        "purpose": "Executes operational processing for internal runtime sequences."
       },
       {
         "name": "getRegionProgress()",
-        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
+        "purpose": "Executes operational processing for internal runtime sequences."
       }
     ]
   },
   {
-    "filepath": "Hangar.jsx",
-    "summary": "The `Hangar.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 2 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines.",
+    "filepath": "AI-Study-Planner/client/src/pages/Hangar.jsx",
+    "summary": "The `Hangar.jsx` module encapsulates localized software operations. It coordinates 2 behavioral systems handlers.",
     "keyFunctions": [
       {
         "name": "Hangar()",
-        "purpose": "Coordinates the execution cycle for the local `Hangar` workflow handle inside the runtime sequence."
+        "purpose": "Executes operational processing for internal runtime sequences."
       },
       {
         "name": "renderShopItem()",
-        "purpose": "Coordinates the execution cycle for the local `renderShopItem` workflow handle inside the runtime sequence."
+        "purpose": "Executes operational processing for internal runtime sequences."
       }
     ]
   },
   {
-    "filepath": "Landing.jsx",
-    "summary": "The `Landing.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 1 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as stateful UI component rendering rendering cascades.",
+    "filepath": "AI-Study-Planner/client/src/pages/Landing.jsx",
+    "summary": "The `Landing.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
     "keyFunctions": [
       {
         "name": "Landing()",
-        "purpose": "Coordinates the execution cycle for the local `Landing` workflow handle inside the runtime sequence."
+        "purpose": "Executes operational processing for internal runtime sequences."
       }
     ]
   },
   {
-    "filepath": "Login (2).jsx",
-    "summary": "The `Login (2).jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 2 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines.",
+    "filepath": "AI-Study-Planner/client/src/pages/Login.jsx",
+    "summary": "The `Login.jsx` module encapsulates localized software operations. It coordinates 2 behavioral systems handlers.",
     "keyFunctions": [
       {
         "name": "Login()",
-        "purpose": "Coordinates the execution cycle for the local `Login` workflow handle inside the runtime sequence."
+        "purpose": "Executes operational processing for internal runtime sequences."
       },
       {
         "name": "handleChange()",
-        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
+        "purpose": "Executes operational processing for internal runtime sequences."
       }
     ]
   },
   {
-    "filepath": "Login.jsx",
-    "summary": "The `Login.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 2 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines.",
+    "filepath": "AI-Study-Planner/client/src/pages/Register.jsx",
+    "summary": "The `Register.jsx` module encapsulates localized software operations. It coordinates 2 behavioral systems handlers.",
     "keyFunctions": [
       {
-        "name": "Login()",
-        "purpose": "Coordinates the execution cycle for the local `Login` workflow handle inside the runtime sequence."
+        "name": "Register()",
+        "purpose": "Executes operational processing for internal runtime sequences."
       },
       {
         "name": "handleChange()",
-        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "AI-Study-Planner/client/src/components/CyberNexusBackground.jsx",
+    "summary": "The `CyberNexusBackground.jsx` module encapsulates localized software operations. It coordinates 5 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "CyberNexusBackground()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "handleResize()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "handleScroll()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "handleMouseMove()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "render()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "AI-Study-Planner/client/src/components/HyperspaceBackground.jsx",
+    "summary": "The `HyperspaceBackground.jsx` module encapsulates localized software operations. It coordinates 3 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "HyperspaceBackground()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "resize()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "render()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "AI-Study-Planner/client/src/components/SpaceBattleBackground.jsx",
+    "summary": "The `SpaceBattleBackground.jsx` module encapsulates localized software operations. It coordinates 7 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "SpaceBattleBackground()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "handleMouseMove()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "resize()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "drawPlayerShip()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "drawEnemyShip()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "spawnExplosion()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "render()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "AI-Study-Planner/test_db.js",
+    "summary": "The `test_db.js` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
       }
     ]
   }

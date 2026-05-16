@@ -4,22 +4,21 @@ import 'reactflow/dist/style.css';
 import graphData from '../mockData/graphData.json';
 
 export default function ArchitectureGraph({ onSelectFile }) {
-  const [nodes, setNodes, onNodesChange] = useNodesState(
+const [nodes, setNodes, onNodesChange] = useNodesState(
     graphData.nodes.map(node => ({
       ...node,
-      // Apply sleek styling to the nodes
       style: { 
-        background: '#1e293b', // Darker slate background
-        color: '#f8fafc',      // Crisp off-white text
-        border: '1px solid #38bdf8', // Neon cyan border
-        borderRadius: '12px', 
-        padding: '14px 20px',
+        background: '#1e293b', 
+        color: '#f8fafc', 
+        border: '1px solid rgba(255,255,255,0.1)', 
+        borderRadius: '8px', 
+        padding: '14px 24px', // Wider padding for a cleaner look
         fontWeight: '600',
         fontSize: '14px',
-        boxShadow: '0 4px 20px rgba(56, 189, 248, 0.15)', // Subtle cyan ambient glow
-        fontFamily: 'JetBrains Mono, Fira Code, monospace', // Developer font feel
-        minWidth: '150px',
-        textAlign: 'center'
+        fontFamily: '"JetBrains Mono", monospace',
+        whiteSpace: 'nowrap', // FIX: Prevents text from wrapping/clipping
+        width: 'fit-content', // FIX: Forces the box to exactly fit the text
+        boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
       },
     }))
   );

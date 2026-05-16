@@ -1,17 +1,17 @@
 {
-  "roadmapTitle": "Understanding the Service Booking Flow",
+  "roadmapTitle": "Understanding the Core Application Flow",
   "steps": [
     {
       "stepNumber": 1,
-      "title": "Start at the Database Schema",
-      "targetFile": "models/User.js",
-      "description": "Read this first to understand what data we collect from local professionals versus standard customers."
+      "title": "Authentication Module",
+      "targetFile": "auth.js",
+      "description": "Start here to understand the authentication logic. This module exports the loginUser function that validates user credentials against hardcoded values."
     },
     {
       "stepNumber": 2,
-      "title": "Look at the Endpoints",
-      "targetFile": "routes/serviceRoutes.js",
-      "description": "See how the frontend requests reach the server to book a job."
+      "title": "The Entry Point",
+      "targetFile": "app.js",
+      "description": "Read this next to see how the application initializes. The startApp function imports and uses the loginUser function from auth.js to authenticate users and control access to the dashboard."
     }
   ]
 }

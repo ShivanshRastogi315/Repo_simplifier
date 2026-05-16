@@ -1,14 +1,22 @@
-{
-  "filepath": "controllers/serviceController.js",
-  "summary": "This file contains the core business logic for the local service marketplace. It handles operations like booking a service professional, verifying customer payments, and updating the status of a job.",
-  "keyFunctions": [
-    {
-      "name": "bookService",
-      "purpose": "Validates the user's ID, checks if the local professional is available at the requested time, and creates a new booking record in the database."
-    },
-    {
-      "name": "completeJob",
-      "purpose": "Updates the job status to 'completed' and triggers the payment processing flow."
-    }
-  ]
-}
+[
+  {
+    "filepath": "app.js",
+    "summary": "This file is the main entry point of the application. It imports the authentication module and initiates the application startup process. When executed, it attempts to log in a user with hardcoded credentials ('admin' and 'password123') and displays appropriate messages based on whether the login succeeds or fails. If authentication is successful, it welcomes the user to the dashboard; otherwise, it denies access.",
+    "keyFunctions": [
+      {
+        "name": "startApp",
+        "purpose": "Initializes the application by logging a startup message, attempting to authenticate a user with predefined credentials, and displaying either a welcome message for successful login or an access denied message for failed authentication."
+      }
+    ]
+  },
+  {
+    "filepath": "auth.js",
+    "summary": "This file serves as the authentication module for the application. It provides user login functionality by simulating database verification. The module exports a single function that validates user credentials against hardcoded values. Currently, it only accepts 'admin' as the username and 'password123' as the password, returning true for valid credentials and false otherwise.",
+    "keyFunctions": [
+      {
+        "name": "loginUser",
+        "purpose": "Validates user credentials by comparing the provided username and password against hardcoded values. Returns true if both username is 'admin' and password is 'password123', otherwise returns false to indicate authentication failure."
+      }
+    ]
+  }
+]

@@ -4,6 +4,32 @@ const path = require('path');
 const DUMMY_REPO_DIR = path.join(__dirname, 'src', 'dummy-repo');
 const MOCK_DATA_DIR = path.join(__dirname, 'src', 'mockData');
 const ROOT_DIR = __dirname;
+// Helper function to recursively scan directories for all code files
+function getAllCodeFiles(dir, fileList = []) {
+  const files = fs.readdirSync(dir);
+  
+  files.forEach(file => {
+    const filePath = path.join(dir, file);
+    const stat = fs.statSync(filePath);
+    
+    if (stat.isDirectory()) {
+      // Skip node_modules, .git, dist, build folders
+      if (!['node_modules', '.git', 'dist', 'build', 'public', 'assets'].includes(file)) {
+        getAllCodeFiles(filePath, fileList);
+      }
+    } else if (file.endsWith('.js') || file.endsWith('.jsx') || file.endsWith('.ts') || file.endsWith('.tsx')) {
+      fileList.push({
+        fullPath: filePath,
+        relativePath: path.relative(DUMMY_REPO_DIR, filePath),
+        fileName: file,
+        content: fs.readFileSync(filePath, 'utf-8')
+      });
+    }
+  });
+  
+  return fileList;
+}
+
 
 // Helper function to analyze the entire repository for Environment Doctor
 function analyzeRepositoryEnvironment() {
@@ -23,47 +49,95 @@ function analyzeRepositoryEnvironment() {
     startupCommands: []
   };
 
-  // 1. Check for package.json (Node.js/React/Vue/Angular)
-  const packageJsonPath = path.join(ROOT_DIR, 'package.json');
-  if (fs.existsSync(packageJsonPath)) {
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+  // 1. Check for package.json - prioritize client/server structure in dummy-repo
+  const clientPackageJsonPath = path.join(DUMMY_REPO_DIR, 'secure-event-platform/client/package.json');
+  const serverPackageJsonPath = path.join(DUMMY_REPO_DIR, 'secure-event-platform/server/package.json');
+  const rootPackageJsonPath = path.join(ROOT_DIR, 'package.json');
+
+  let hasClientServer = false;
+  let allDependencies = {};
+  let allDevDependencies = {};
+  let allScripts = {};
+
+  // Check for client/server monorepo structure
+  if (fs.existsSync(clientPackageJsonPath) && fs.existsSync(serverPackageJsonPath)) {
+    hasClientServer = true;
+    analysis.projectType = 'Full-Stack Monorepo';
+    
+    const clientPackage = JSON.parse(fs.readFileSync(clientPackageJsonPath, 'utf-8'));
+    const serverPackage = JSON.parse(fs.readFileSync(serverPackageJsonPath, 'utf-8'));
+    
+    // Merge dependencies
+    allDependencies = { ...clientPackage.dependencies, ...serverPackage.dependencies };
+    allDevDependencies = { ...clientPackage.devDependencies, ...serverPackage.devDependencies };
+    allScripts = {
+      ...Object.fromEntries(Object.entries(clientPackage.scripts || {}).map(([k, v]) => [`client:${k}`, v])),
+      ...Object.fromEntries(Object.entries(serverPackage.scripts || {}).map(([k, v]) => [`server:${k}`, v]))
+    };
+    
+    analysis.dependencies = allDependencies;
+    analysis.devDependencies = allDevDependencies;
+    analysis.scripts = allScripts;
+    analysis.services.push({ name: 'Frontend (Client)', type: 'react' });
+    analysis.services.push({ name: 'Backend (Server)', type: 'express' });
+  } else if (fs.existsSync(rootPackageJsonPath)) {
+    const packageJson = JSON.parse(fs.readFileSync(rootPackageJsonPath, 'utf-8'));
     analysis.projectType = 'Node.js';
     analysis.dependencies = packageJson.dependencies || {};
     analysis.devDependencies = packageJson.devDependencies || {};
     analysis.scripts = packageJson.scripts || {};
+    allDependencies = analysis.dependencies;
+    allDevDependencies = analysis.devDependencies;
+    allScripts = analysis.scripts;
+  }
+
+  if (Object.keys(allDependencies).length > 0 || Object.keys(allDevDependencies).length > 0) {
 
     // Detect framework
-    if (analysis.dependencies['react'] || analysis.devDependencies['react']) {
+    if (allDependencies['react'] || allDevDependencies['react']) {
       analysis.stack.push('React');
-      if (analysis.dependencies['react-scripts']) analysis.stack.push('Create React App');
-      if (analysis.dependencies['next']) analysis.stack.push('Next.js');
-      if (analysis.dependencies['vite']) analysis.stack.push('Vite');
+      if (allDependencies['react-scripts']) analysis.stack.push('Create React App');
+      if (allDependencies['next']) analysis.stack.push('Next.js');
+      if (allDevDependencies['vite']) analysis.stack.push('Vite');
+      if (allDevDependencies['@vitejs/plugin-react']) analysis.stack.push('Vite');
     }
-    if (analysis.dependencies['vue']) analysis.stack.push('Vue.js');
-    if (analysis.dependencies['@angular/core']) analysis.stack.push('Angular');
-    if (analysis.dependencies['express']) {
+    if (allDependencies['vue']) analysis.stack.push('Vue.js');
+    if (allDependencies['@angular/core']) analysis.stack.push('Angular');
+    if (allDependencies['express']) {
       analysis.stack.push('Express.js');
-      analysis.services.push({ name: 'Backend API', type: 'express' });
+      if (!hasClientServer) {
+        analysis.services.push({ name: 'Backend API', type: 'express' });
+      }
     }
-    if (analysis.dependencies['fastify']) {
+    if (allDependencies['fastify']) {
       analysis.stack.push('Fastify');
-      analysis.services.push({ name: 'Backend API', type: 'fastify' });
+      if (!hasClientServer) {
+        analysis.services.push({ name: 'Backend API', type: 'fastify' });
+      }
+    }
+
+    // Detect authentication
+    if (allDependencies['jsonwebtoken']) {
+      analysis.stack.push('JWT Authentication');
+    }
+    if (allDependencies['bcryptjs'] || allDependencies['bcrypt']) {
+      analysis.stack.push('Password Hashing (bcrypt)');
     }
 
     // Detect databases
-    if (analysis.dependencies['mongoose']) {
+    if (allDependencies['mongoose']) {
       analysis.databases.push('MongoDB');
       analysis.envVars.push({ key: 'MONGODB_URI', purpose: 'MongoDB connection string' });
     }
-    if (analysis.dependencies['pg'] || analysis.dependencies['postgres']) {
+    if (allDependencies['pg'] || allDependencies['postgres']) {
       analysis.databases.push('PostgreSQL');
       analysis.envVars.push({ key: 'DATABASE_URL', purpose: 'PostgreSQL connection string' });
     }
-    if (analysis.dependencies['mysql'] || analysis.dependencies['mysql2']) {
+    if (allDependencies['mysql'] || allDependencies['mysql2']) {
       analysis.databases.push('MySQL');
       analysis.envVars.push({ key: 'MYSQL_HOST', purpose: 'MySQL host' });
     }
-    if (analysis.dependencies['redis']) {
+    if (allDependencies['redis']) {
       analysis.databases.push('Redis');
       analysis.envVars.push({ key: 'REDIS_URL', purpose: 'Redis connection URL' });
     }
@@ -119,12 +193,11 @@ function analyzeRepositoryEnvironment() {
     });
   }
 
-  // 5. Scan dummy-repo files for API endpoints and ports
+  // 5. Scan dummy-repo files for API endpoints and ports (use recursive scanner)
   if (fs.existsSync(DUMMY_REPO_DIR)) {
-    const dummyFiles = fs.readdirSync(DUMMY_REPO_DIR);
-    dummyFiles.forEach(file => {
-      const filePath = path.join(DUMMY_REPO_DIR, file);
-      const content = fs.readFileSync(filePath, 'utf-8');
+    const allCodeFiles = getAllCodeFiles(DUMMY_REPO_DIR);
+    allCodeFiles.forEach(fileObj => {
+      const content = fileObj.content;
       
       // Look for API URLs
       const apiMatches = content.match(/https?:\/\/[^\s"']+|localhost:\d+/g);
@@ -154,14 +227,32 @@ function analyzeRepositoryEnvironment() {
   if (analysis.dockerized) {
     analysis.setupSteps.push('Install Docker Desktop');
     analysis.setupSteps.push('Run: docker-compose up');
-  } else if (analysis.projectType === 'Node.js') {
+  } else if (hasClientServer) {
+    analysis.setupSteps.push('Install Node.js (v18+ recommended)');
+    analysis.setupSteps.push('Navigate to client folder: cd client');
+    analysis.setupSteps.push('Install client dependencies: npm install');
+    analysis.setupSteps.push('Navigate to server folder: cd ../server');
+    analysis.setupSteps.push('Install server dependencies: npm install');
+    if (analysis.databases.length > 0) {
+      analysis.databases.forEach(db => {
+        analysis.setupSteps.push(`Set up ${db} database`);
+      });
+    }
+    if (analysis.envVars.length > 0) {
+      analysis.setupSteps.push('Create server/.env file with required variables');
+    }
+    analysis.setupSteps.push('Start server: npm run dev (in server folder)');
+    analysis.setupSteps.push('Start client: npm run dev (in client folder, new terminal)');
+    analysis.startupCommands.push('cd server && npm run dev');
+    analysis.startupCommands.push('cd client && npm run dev');
+  } else if (analysis.projectType === 'Node.js' || analysis.projectType === 'Full-Stack Monorepo') {
     analysis.setupSteps.push('Install Node.js (v16+ recommended)');
     analysis.setupSteps.push('Run: npm install');
     if (analysis.scripts.start) {
       analysis.setupSteps.push(`Run: npm start`);
       analysis.startupCommands.push('npm start');
     }
-    if (analysis.scripts.dev) {
+    if (analysis.scripts.dev || analysis.scripts['client:dev']) {
       analysis.setupSteps.push(`Run: npm run dev`);
       analysis.startupCommands.push('npm run dev');
     }
@@ -429,18 +520,57 @@ function generateTicketData(files, explainData) {
     });
   }
   
+  // NEW: Check for missing return statement in middleware (common bug in Express middleware)
+  const middlewareFiles = explainData.filter(data =>
+    data.filepath.toLowerCase().includes('middleware')
+  );
+  
+  middlewareFiles.forEach(data => {
+    const filePath = path.join(DUMMY_REPO_DIR, data.filepath);
+    if (fs.existsSync(filePath)) {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      
+      // Detect pattern: res.status().json() without return, followed by another if (!token) check
+      // This is a common bug where middleware sends response but doesn't stop execution
+      const hasNoTokenCheck = content.includes('if (!token)');
+      const hasStatusResponse = /res\.status\(\d+\)\.json\(/g.test(content);
+      const missingReturn = hasNoTokenCheck && hasStatusResponse && !content.match(/return\s+res\.status\(\d+\)\.json\(/);
+      
+      if (missingReturn && issues.length === 0) {
+        issues.push({
+          type: 'middleware_bug',
+          title: `Fix Missing Return Statement in ${path.basename(data.filepath)}`,
+          difficulty: 'Easy',
+          context: `The middleware file "${data.filepath}" contains a critical bug. After sending a 401 response for "No token", the function continues executing instead of returning. This causes the middleware to attempt sending multiple responses, leading to "Cannot set headers after they are sent" errors.`,
+          instructions: `Open "${data.filepath}" and locate the section where it checks "if (!token)". Add a "return" statement before "res.status(401).json()" to prevent further execution after sending the error response. This is a common Express.js middleware pattern that new developers must understand.`,
+          filesToCheck: [data.filepath, 'server/routes/authRoutes.js', 'server/routes/userRoutes.js'],
+          acceptanceCriteria: [
+            'Added return statement before res.status(401).json() in the "No token" check',
+            'Middleware properly stops execution after sending error response',
+            'No "headers already sent" errors in server logs',
+            'Protected routes work correctly with and without tokens'
+          ]
+        });
+        return;
+      }
+    }
+  });
+  
   // Check for missing error handling in fetch calls
   const filesWithFetch = explainData.filter(data => {
     const filePath = path.join(DUMMY_REPO_DIR, data.filepath);
-    const content = fs.readFileSync(filePath, 'utf-8');
-    return content.includes('fetch(') && !content.includes('catch');
+    if (fs.existsSync(filePath)) {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      return content.includes('fetch(') && !content.includes('catch');
+    }
+    return false;
   });
   
   if (filesWithFetch.length > 0 && issues.length === 0) {
     const targetFile = filesWithFetch[0].filepath;
     issues.push({
       type: 'error_handling',
-      title: `Add Error Handling to API Calls in ${targetFile}`,
+      title: `Add Error Handling to API Calls in ${path.basename(targetFile)}`,
       difficulty: 'Medium',
       context: `The file "${targetFile}" makes API calls using fetch() but lacks proper error handling. This can lead to unhandled promise rejections.`,
       instructions: `Add try-catch blocks or .catch() handlers to all fetch calls in "${targetFile}". Display user-friendly error messages when requests fail.`,
@@ -494,40 +624,87 @@ function generateTicketData(files, explainData) {
 function generateKnowledgeQuestions(files, explainData, focusFile) {
   const questions = [];
   
-  // Question about the focus file
+  // Detect if this is a full-stack application
+  const hasBackend = files.some(f => f.includes('server') || f.includes('backend'));
+  const hasFrontend = files.some(f => f.includes('client') || f.includes('frontend'));
+  const hasAuth = files.some(f => f.toLowerCase().includes('auth'));
+  const hasMiddleware = files.some(f => f.toLowerCase().includes('middleware'));
+  const hasModels = files.some(f => f.toLowerCase().includes('model'));
+  
+  // Question 1: About the specific file being fixed
   const focusData = explainData.find(d => d.filepath === focusFile);
   if (focusData && focusData.keyFunctions.length > 0) {
+    if (focusFile.toLowerCase().includes('middleware')) {
+      questions.push({
+        question: `Why is it critical to add a "return" statement before sending error responses in Express middleware like ${path.basename(focusFile)}?`,
+        hint: 'Without return, the middleware continues executing and may try to send multiple responses, causing "Cannot set headers after they are sent" errors.'
+      });
+    } else {
+      questions.push({
+        question: `What is the primary purpose of the "${focusData.keyFunctions[0].name}" function in ${path.basename(focusFile)}?`,
+        hint: focusData.keyFunctions[0].purpose
+      });
+    }
+  }
+  
+  // Question 2: Architecture-specific based on detected stack
+  if (hasBackend && hasFrontend) {
     questions.push({
-      question: `What is the primary purpose of the "${focusData.keyFunctions[0].name}" function in ${focusFile}?`,
-      hint: focusData.keyFunctions[0].purpose
+      question: 'How does the frontend communicate with the backend API in this full-stack application?',
+      hint: 'Check the services/api.js or services/authService.js files for API base URL configuration and request methods.'
     });
   }
   
-  // Question about generateData.js
-  questions.push({
-    question: 'What regex pattern does generateData.js use to detect function declarations in the code?',
-    hint: 'Check line 15 of generateData.js'
-  });
+  // Question 3: Authentication flow (if auth exists)
+  if (hasAuth && hasMiddleware) {
+    const authMiddleware = files.find(f => f.toLowerCase().includes('authmiddleware'));
+    if (authMiddleware) {
+      questions.push({
+        question: `Why is token validation handled in ${path.basename(authMiddleware)} middleware instead of directly in the route controllers?`,
+        hint: 'Middleware allows reusable authentication logic across multiple routes without code duplication. It follows the separation of concerns principle.'
+      });
+    }
+  }
   
-  // Question about the architecture
-  questions.push({
-    question: `How many total files are currently in the dummy-repo directory?`,
-    hint: `There are ${files.length} files`
-  });
+  // Question 4: Database/Models (if models exist)
+  if (hasModels) {
+    const userModel = files.find(f => f.toLowerCase().includes('user') && f.toLowerCase().includes('model'));
+    if (userModel) {
+      questions.push({
+        question: `What database schema fields are defined in the ${path.basename(userModel)} model, and why is the password field marked as "required"?`,
+        hint: 'Check the User model schema. The password is required for authentication and is hashed before storage for security.'
+      });
+    }
+  }
   
-  // Question about data flow
-  questions.push({
-    question: 'Which three JSON files does generateData.js create in the mockData directory?',
-    hint: 'graphData.json, explainData.json, and roadmapData.json'
-  });
+  // Question 5: Security/Best Practices
+  if (hasAuth) {
+    const authController = files.find(f => f.toLowerCase().includes('authcontroller'));
+    if (authController) {
+      questions.push({
+        question: `In ${path.basename(authController)}, why is bcrypt used to hash passwords before storing them in the database?`,
+        hint: 'Bcrypt provides one-way encryption. Even if the database is compromised, attackers cannot retrieve plain-text passwords.'
+      });
+    }
+  }
   
-  // Question about React components
-  questions.push({
-    question: 'Which React component is responsible for rendering the interactive architecture graph?',
-    hint: 'ArchitectureGraph.jsx uses ReactFlow'
-  });
+  // Fallback questions if specific patterns not found
+  if (questions.length < 3) {
+    questions.push({
+      question: `How many total files were analyzed in the dummy-repo directory?`,
+      hint: `There are ${files.length} files`
+    });
+  }
   
-  return questions;
+  if (questions.length < 4) {
+    questions.push({
+      question: 'What is the purpose of the generateData.js script in this repository?',
+      hint: 'It recursively scans the dummy-repo, analyzes code structure, and generates visualization data for the onboarding platform.'
+    });
+  }
+  
+  // Return only the first 5 questions
+  return questions.slice(0, 5);
 }
 
 try {
@@ -629,12 +806,24 @@ try {
     }
   }
 
+  // Generate dynamic ticket data based on actual code analysis
+  const allFilePaths = Object.keys(repositoryMap);
+  const ticketData = generateTicketData(allFilePaths, explainData);
+
+  // Generate dynamic Environment Doctor data
+  const envAnalysis = analyzeRepositoryEnvironment();
+  const doctorData = generateDoctorData(envAnalysis);
+
   fs.writeFileSync(path.join(MOCK_DATA_DIR, 'graphData.json'), JSON.stringify({ nodes, edges }, null, 2));
   fs.writeFileSync(path.join(MOCK_DATA_DIR, 'explainData.json'), JSON.stringify(explainData, null, 2));
   fs.writeFileSync(path.join(MOCK_DATA_DIR, 'roadmapData.json'), JSON.stringify({ roadmapTitle: "Hierarchical Architecture Map", steps: roadmapSteps }, null, 2));
+  fs.writeFileSync(path.join(MOCK_DATA_DIR, 'ticketData.json'), JSON.stringify(ticketData, null, 2));
+  fs.writeFileSync(path.join(MOCK_DATA_DIR, 'doctorData.json'), JSON.stringify(doctorData, null, 2));
 
   console.log(`\n======================================================`);
   console.log(`✅ VISUAL POLISH COMPLETE: Colored smoothstep arrows and auto-sized nodes added.`);
+  console.log(`🎫 DYNAMIC TICKET GENERATED: ${ticketData.title}`);
+  console.log(`🏥 ENVIRONMENT DOCTOR: ${doctorData.status}`);
   console.log(`======================================================\n`);
 
 } catch (error) {

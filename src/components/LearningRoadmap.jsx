@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Compass, ShieldAlert, Terminal } from 'lucide-react';
 import roadmapData from '../mockData/roadmapData.json';
 import doctorData from '../mockData/doctorData.json';
@@ -6,6 +6,12 @@ import doctorData from '../mockData/doctorData.json';
 export default function LearningRoadmap({ onSelectFile, selectedFile }) {
   const [runningFix, setRunningFix] = useState(false);
   const [fixed, setFixed] = useState(false);
+  const [topHeight, setTopHeight] = useState(50); // Percentage
+  const [isDragging, setIsDragging] = useState(false);
+  
+  const containerRef = useRef(null);
+  const architectureRef = useRef(null);
+  const doctorRef = useRef(null);
 
   const triggerFix = () => {
     setRunningFix(true);
@@ -15,23 +21,84 @@ export default function LearningRoadmap({ onSelectFile, selectedFile }) {
     }, 2000);
   };
 
+  // Handle mouse drag for resizing
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!isDragging || !containerRef.current) return;
+      
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const newTopHeight = ((e.clientY - containerRect.top) / containerRect.height) * 100;
+      
+      // Constrain between 20% and 80%
+      if (newTopHeight >= 20 && newTopHeight <= 80) {
+        setTopHeight(newTopHeight);
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
+
+  // Auto-scroll to selected file when clicked from architecture graph
+  useEffect(() => {
+    if (selectedFile && architectureRef.current) {
+      // Find the matching step element
+      const stepElements = architectureRef.current.querySelectorAll('[data-file]');
+      const targetElement = Array.from(stepElements).find(
+        el => el.getAttribute('data-file') === selectedFile
+      );
+      
+      if (targetElement) {
+        // Smooth scroll with offset
+        targetElement.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center'
+        });
+      }
+    }
+  }, [selectedFile]);
+
   return (
-    <div style={{ 
-      padding: '20px 20px 30px 20px', 
-      color: '#fff', 
-      height: 'calc(100vh - 65px)', /* FIX: Locks the sidebar exactly to the workspace viewport height */
-      display: 'flex', 
-      flexDirection: 'column', 
-      boxSizing: 'border-box',
-      overflow: 'hidden'            /* FIX: Prevents the parent container from stretching down */
-    }}>
-      {/* Learning Roadmap Segment */}
-      <div style={{ 
-        flex: 1, 
-        overflowY: 'auto',          /* Enforces the vertical scrollbar */
-        marginBottom: '15px', 
-        paddingRight: '6px' 
-      }}>
+    <div 
+      ref={containerRef}
+      style={{ 
+        padding: '0',
+        color: '#fff', 
+        height: '100%',
+        display: 'flex', 
+        flexDirection: 'column', 
+        boxSizing: 'border-box',
+        overflow: 'hidden',
+        position: 'relative'
+      }}
+    >
+      {/* Top Section: Hierarchical Architecture Map */}
+      <div 
+        ref={architectureRef}
+        className="smooth-scroll"
+        style={{ 
+          height: `${topHeight}%`,
+          overflowY: 'auto',
+          padding: '20px',
+          boxSizing: 'border-box'
+        }}
+      >
         <h2 style={{ fontSize: '1.4rem', marginBottom: '5px', display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700' }}>
           <Compass color="#48bb78" /> {roadmapData.roadmapTitle}
         </h2>
@@ -45,6 +112,7 @@ export default function LearningRoadmap({ onSelectFile, selectedFile }) {
             return (
               <div 
                 key={step.stepNumber}
+                data-file={step.targetFile}
                 onClick={() => onSelectFile(step.targetFile)}
                 style={{
                   background: isSelected ? 'linear-gradient(135deg, #1e3a8a, #1e40af)' : '#1f2937',
@@ -75,113 +143,134 @@ export default function LearningRoadmap({ onSelectFile, selectedFile }) {
         </div>
       </div>
 
-      <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.08)', margin: '10px 0' }} />
+      {/* Resizable Divider */}
+      <div 
+        className="resize-divider"
+        onMouseDown={handleMouseDown}
+        style={{
+          cursor: isDragging ? 'ns-resize' : 'ns-resize',
+          userSelect: 'none'
+        }}
+      />
 
-      {/* Environment Doctor Segment */}
-      <div style={{ background: 'rgba(30, 41, 59, 0.4)', border: '1px solid rgba(255,255,255,0.05)', padding: '15px', borderRadius: '12px', maxHeight: '500px', overflowY: 'auto' }}>
-        <h3 style={{ fontSize: '1.05rem', margin: '0 0 5px 0', display: 'flex', alignItems: 'center', gap: '8px', color: '#f1f5f9', fontWeight: '700' }}>
-          <ShieldAlert size={18} color="#f59e0b" /> Environment Doctor
-        </h3>
-        <p style={{ color: '#94a3b8', fontSize: '0.75rem', margin: '0 0 12px 0', lineHeight: '1.3' }}>
-          Analyzes your repository and generates setup instructions.
-        </p>
-        
-        {/* Project Stack Info */}
-        <div style={{ background: '#0f172a', border: '1px solid rgba(56, 189, 248, 0.3)', padding: '10px', borderRadius: '6px', marginBottom: '12px' }}>
-          <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginBottom: '4px' }}>DETECTED STACK</div>
-          <div style={{ color: '#38bdf8', fontWeight: '700', fontSize: '0.85rem', fontFamily: 'monospace' }}>
-            {doctorData.projectStack}
-          </div>
-          {doctorData.detectedPorts && doctorData.detectedPorts.length > 0 && (
-            <div style={{ marginTop: '6px', fontSize: '0.75rem', color: '#94a3b8' }}>
-              Ports: {doctorData.detectedPorts.map(p => `localhost:${p}`).join(', ')}
+      {/* Bottom Section: Environment Doctor */}
+      <div 
+        ref={doctorRef}
+        className="smooth-scroll"
+        style={{ 
+          height: `${100 - topHeight}%`,
+          overflowY: 'auto',
+          padding: '20px',
+          boxSizing: 'border-box'
+        }}
+      >
+        <div style={{ background: 'rgba(30, 41, 59, 0.4)', border: '1px solid rgba(255,255,255,0.05)', padding: '15px', borderRadius: '12px' }}>
+          <h3 style={{ fontSize: '1.05rem', margin: '0 0 5px 0', display: 'flex', alignItems: 'center', gap: '8px', color: '#f1f5f9', fontWeight: '700' }}>
+            <ShieldAlert size={18} color="#f59e0b" /> Environment Doctor
+          </h3>
+          <p style={{ color: '#94a3b8', fontSize: '0.75rem', margin: '0 0 12px 0', lineHeight: '1.3' }}>
+            Analyzes your repository and generates setup instructions.
+          </p>
+          
+          {/* Project Stack Info */}
+          <div style={{ background: '#0f172a', border: '1px solid rgba(56, 189, 248, 0.3)', padding: '10px', borderRadius: '6px', marginBottom: '12px' }}>
+            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginBottom: '4px' }}>DETECTED STACK</div>
+            <div style={{ color: '#38bdf8', fontWeight: '700', fontSize: '0.85rem', fontFamily: 'monospace' }}>
+              {doctorData.projectStack}
             </div>
-          )}
-        </div>
-
-        {/* Issues Found */}
-        <div style={{ marginBottom: '12px' }}>
-          <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>
-            STATUS: {doctorData.status}
+            {doctorData.detectedPorts && doctorData.detectedPorts.length > 0 && (
+              <div style={{ marginTop: '6px', fontSize: '0.75rem', color: '#94a3b8' }}>
+                Ports: {doctorData.detectedPorts.map(p => `localhost:${p}`).join(', ')}
+              </div>
+            )}
           </div>
-          {doctorData.issuesFound.map((issue, idx) => (
-            <div key={idx} style={{
-              background: '#0f172a',
-              border: `1px solid ${issue.severity === 'critical' ? '#ff003c' : issue.severity === 'high' ? '#f59e0b' : issue.severity === 'success' ? '#4ade80' : '#64748b'}`,
-              padding: '10px',
-              borderRadius: '6px',
-              marginBottom: '8px',
-              borderLeft: `3px solid ${issue.severity === 'critical' ? '#ff003c' : issue.severity === 'high' ? '#f59e0b' : issue.severity === 'success' ? '#4ade80' : '#64748b'}`
-            }}>
-              <div style={{
-                color: issue.severity === 'critical' ? '#ff003c' : issue.severity === 'high' ? '#f59e0b' : issue.severity === 'success' ? '#4ade80' : '#94a3b8',
-                fontWeight: '700',
-                fontSize: '0.75rem',
-                marginBottom: '4px'
-              }}>
-                {issue.severity === 'critical' ? '🚨' : issue.severity === 'high' ? '⚠️' : issue.severity === 'success' ? '✅' : 'ℹ️'} {issue.type}
-              </div>
-              <div style={{ color: '#94a3b8', fontSize: '0.7rem', marginBottom: issue.fixCommand ? '6px' : '0' }}>
-                {issue.description}
-              </div>
-              {issue.fixCommand && (
-                <div style={{
-                  background: 'rgba(0,0,0,0.3)',
-                  padding: '6px 8px',
-                  borderRadius: '4px',
-                  fontFamily: 'monospace',
-                  fontSize: '0.7rem',
-                  color: '#4ade80'
-                }}>
-                  $ {issue.fixCommand}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
 
-        {/* Setup Steps */}
-        {doctorData.setupSteps && doctorData.setupSteps.length > 0 && (
+          {/* Issues Found */}
           <div style={{ marginBottom: '12px' }}>
             <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>
-              SETUP STEPS
+              STATUS: {doctorData.status}
             </div>
-            {doctorData.setupSteps.map((step, idx) => (
+            {doctorData.issuesFound.map((issue, idx) => (
               <div key={idx} style={{
-                fontSize: '0.7rem',
-                color: '#94a3b8',
-                marginBottom: '4px',
-                paddingLeft: '12px',
-                borderLeft: '2px solid #38bdf8'
+                background: '#0f172a',
+                border: `1px solid ${issue.severity === 'critical' ? '#ff003c' : issue.severity === 'high' ? '#f59e0b' : issue.severity === 'success' ? '#4ade80' : '#64748b'}`,
+                padding: '10px',
+                borderRadius: '6px',
+                marginBottom: '8px',
+                borderLeft: `3px solid ${issue.severity === 'critical' ? '#ff003c' : issue.severity === 'high' ? '#f59e0b' : issue.severity === 'success' ? '#4ade80' : '#64748b'}`
               }}>
-                {idx + 1}. {step}
+                <div style={{
+                  color: issue.severity === 'critical' ? '#ff003c' : issue.severity === 'high' ? '#f59e0b' : issue.severity === 'success' ? '#4ade80' : '#94a3b8',
+                  fontWeight: '700',
+                  fontSize: '0.75rem',
+                  marginBottom: '4px'
+                }}>
+                  {issue.severity === 'critical' ? '🚨' : issue.severity === 'high' ? '⚠️' : issue.severity === 'success' ? '✅' : 'ℹ️'} {issue.type}
+                </div>
+                <div style={{ color: '#94a3b8', fontSize: '0.7rem', marginBottom: issue.fixCommand ? '6px' : '0' }}>
+                  {issue.description}
+                </div>
+                {issue.fixCommand && (
+                  <div style={{
+                    background: 'rgba(0,0,0,0.3)',
+                    padding: '6px 8px',
+                    borderRadius: '4px',
+                    fontFamily: 'monospace',
+                    fontSize: '0.7rem',
+                    color: '#4ade80'
+                  }}>
+                    $ {issue.fixCommand}
+                  </div>
+                )}
               </div>
             ))}
           </div>
-        )}
 
-        {/* Quick Start Script */}
-        {doctorData.quickStartScript && (
-          <div>
-            <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>
-              QUICK START SCRIPT
+          {/* Setup Steps */}
+          {doctorData.setupSteps && doctorData.setupSteps.length > 0 && (
+            <div style={{ marginBottom: '12px' }}>
+              <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>
+                SETUP STEPS
+              </div>
+              {doctorData.setupSteps.map((step, idx) => (
+                <div key={idx} style={{
+                  fontSize: '0.7rem',
+                  color: '#94a3b8',
+                  marginBottom: '4px',
+                  paddingLeft: '12px',
+                  borderLeft: '2px solid #38bdf8'
+                }}>
+                  {idx + 1}. {step}
+                </div>
+              ))}
             </div>
-            <div style={{
-              background: '#000',
-              padding: '10px',
-              borderRadius: '6px',
-              fontFamily: 'monospace',
-              fontSize: '0.65rem',
-              color: '#4ade80',
-              whiteSpace: 'pre-wrap',
-              maxHeight: '150px',
-              overflowY: 'auto'
-            }}>
-              {doctorData.quickStartScript}
+          )}
+
+          {/* Quick Start Script */}
+          {doctorData.quickStartScript && (
+            <div>
+              <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>
+                QUICK START SCRIPT
+              </div>
+              <div style={{
+                background: '#000',
+                padding: '10px',
+                borderRadius: '6px',
+                fontFamily: 'monospace',
+                fontSize: '0.65rem',
+                color: '#4ade80',
+                whiteSpace: 'pre-wrap',
+                maxHeight: '150px',
+                overflowY: 'auto'
+              }}>
+                {doctorData.quickStartScript}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
 }
+
+// Made with Bob

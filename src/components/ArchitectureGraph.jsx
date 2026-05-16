@@ -25,6 +25,7 @@ const [nodes, setNodes, onNodesChange] = useNodesState(
   const [edges, setEdges, onEdgesChange] = useEdgesState(graphData.edges);
 
   const onNodeClick = (event, node) => {
+    // Trigger file selection which will cause auto-scroll in LearningRoadmap
     onSelectFile(node.id);
   };
 

@@ -1,29 +1,41 @@
 {
   "status": "Setup Required",
-  "detectedFiles": [
-    "package.json"
-  ],
-  "projectStack": "React, Create React App",
+  "detectedFiles": [],
+  "projectStack": "React, Vite, Vite, Express.js, JWT Authentication, Password Hashing (bcrypt)",
   "detectedPorts": [
-    "3000"
+    "5000"
   ],
-  "requiredEnvVars": 1,
+  "requiredEnvVars": 4,
   "issuesFound": [
     {
       "type": "Missing Environment Configuration",
-      "description": "The application requires 1 environment variables but no .env file exists.",
+      "description": "The application requires 4 environment variables but no .env file exists.",
       "severity": "high",
       "fixCommand": "Create a .env file manually",
+      "autoFixable": false
+    },
+    {
+      "type": "MongoDB Connection Required",
+      "description": "The application uses MongoDB. Ensure it's running and accessible.",
+      "severity": "medium",
+      "fixCommand": "Start MongoDB service or use Docker",
       "autoFixable": false
     }
   ],
   "setupSteps": [
-    "Install Node.js (v16+ recommended)",
-    "Run: npm install",
-    "Run: npm start"
+    "Install Node.js (v18+ recommended)",
+    "Navigate to client folder: cd client",
+    "Install client dependencies: npm install",
+    "Navigate to server folder: cd ../server",
+    "Install server dependencies: npm install",
+    "Set up MongoDB database",
+    "Create server/.env file with required variables",
+    "Start server: npm run dev (in server folder)",
+    "Start client: npm run dev (in client folder, new terminal)"
   ],
   "startupCommands": [
-    "npm start"
+    "cd server && npm run dev",
+    "cd client && npm run dev"
   ],
-  "quickStartScript": "#!/bin/bash\n# Auto-generated setup script\n\necho \"📦 Installing dependencies...\"\nnpm install\n\necho \"🚀 Starting application...\"\nnpm start"
+  "quickStartScript": "#!/bin/bash\n# Auto-generated setup script\n"
 }

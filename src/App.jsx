@@ -7,16 +7,16 @@ export default function App() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      width: '100%',            /* Changed from 100vw to eliminate horizontal scrollbar */
-      height: '100vh', 
-      backgroundColor: '#0f172a', 
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100vw',
+      height: '100vh',
+      backgroundColor: '#0f172a',
       fontFamily: '"Inter", system-ui, sans-serif',
-      overflow: 'hidden',       /* Strictly locks any full-page scrolling */
-      boxSizing: 'border-box',
-      position: 'relative'
+      overflow: 'hidden',
+      margin: 0,
+      padding: 0
     }}>
       {/* Balanced Header */}
       <header style={{ 
@@ -32,11 +32,8 @@ export default function App() {
         boxSizing: 'border-box'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ background: 'linear-gradient(135deg, #38bdf8, #818cf8)', padding: '5px 10px', borderRadius: '8px', color: '#fff', fontWeight: 'bold', fontSize: '0.9rem' }}>
-            🛡️ AEGIS
-          </div>
-          <h1 style={{ color: '#fff', fontSize: '1.15rem', margin: 0, fontWeight: '700', letterSpacing: '0.5px' }}>
-            AI Codebase Navigator
+          <h1 style={{ color: '#fff', fontSize: '1.4rem', margin: 0, fontWeight: '700', letterSpacing: '0.5px', background: 'linear-gradient(135deg, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            FlowBase
           </h1>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

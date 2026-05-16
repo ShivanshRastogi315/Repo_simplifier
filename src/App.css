@@ -1,0 +1,78 @@
+/* Global Reset - Remove white borders/spacing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #0f172a;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom Blue-Themed Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #38bdf8, #3b82f6);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(135deg, #0284c7, #1d4ed8);
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #38bdf8 rgba(15, 23, 42, 0.5);
+}
+
+/* Resizable Divider Styling */
+.resize-divider {
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+  cursor: ns-resize;
+  position: relative;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.resize-divider:hover {
+  height: 6px;
+  background: linear-gradient(90deg, transparent, #0ea5e9, transparent);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.resize-divider:active {
+  height: 6px;
+  background: linear-gradient(90deg, transparent, #0284c7, transparent);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
+}
+
+/* Smooth Scroll Behavior */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Made with Bob */

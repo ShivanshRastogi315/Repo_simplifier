@@ -62,7 +62,7 @@ export default function LearningRoadmap({ onSelectFile, selectedFile }) {
                     STEP {step.stepNumber}
                   </span>
                   <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#38bdf8', fontFamily: 'monospace' }}>
-                    {step.targetFile}
+                    {step.targetFile.split('/').pop()}
                   </span>
                 </div>
                 <h4 style={{ fontWeight: '700', margin: '4px 0', color: '#fff', fontSize: '0.9rem' }}>{step.title}</h4>

@@ -1,79 +1,225 @@
 [
   {
-    "filepath": "Dashboard.jsx",
-    "summary": "The `Dashboard.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 5 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines as well as payload encryption verification protocols.",
+    "filepath": "secure-event-platform/client/eslint.config.js",
+    "summary": "The `eslint.config.js` module encapsulates localized software operations. ",
     "keyFunctions": [
       {
-        "name": "Dashboard()",
-        "purpose": "Coordinates the execution cycle for the local `Dashboard` workflow handle inside the runtime sequence."
-      },
-      {
-        "name": "handleAnswerSelect()",
-        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
-      },
-      {
-        "name": "closeQuiz()",
-        "purpose": "Coordinates the execution cycle for the local `closeQuiz` workflow handle inside the runtime sequence."
-      },
-      {
-        "name": "handleLogout()",
-        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
-      },
-      {
-        "name": "getRegionProgress()",
-        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
       }
     ]
   },
   {
-    "filepath": "Hangar.jsx",
-    "summary": "The `Hangar.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 2 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines.",
+    "filepath": "secure-event-platform/client/vite.config.js",
+    "summary": "The `vite.config.js` module encapsulates localized software operations. ",
     "keyFunctions": [
       {
-        "name": "Hangar()",
-        "purpose": "Coordinates the execution cycle for the local `Hangar` workflow handle inside the runtime sequence."
-      },
-      {
-        "name": "renderShopItem()",
-        "purpose": "Coordinates the execution cycle for the local `renderShopItem` workflow handle inside the runtime sequence."
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
       }
     ]
   },
   {
-    "filepath": "Landing.jsx",
-    "summary": "The `Landing.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 1 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as stateful UI component rendering rendering cascades.",
+    "filepath": "secure-event-platform/server/config/db.js",
+    "summary": "The `db.js` module encapsulates localized software operations. ",
     "keyFunctions": [
       {
-        "name": "Landing()",
-        "purpose": "Coordinates the execution cycle for the local `Landing` workflow handle inside the runtime sequence."
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
       }
     ]
   },
   {
-    "filepath": "Login (2).jsx",
-    "summary": "The `Login (2).jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 2 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines.",
+    "filepath": "secure-event-platform/client/src/App.jsx",
+    "summary": "The `App.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
     "keyFunctions": [
       {
-        "name": "Login()",
-        "purpose": "Coordinates the execution cycle for the local `Login` workflow handle inside the runtime sequence."
-      },
-      {
-        "name": "handleChange()",
-        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
+        "name": "App()",
+        "purpose": "Executes operational processing for internal runtime sequences."
       }
     ]
   },
   {
-    "filepath": "Login.jsx",
-    "summary": "The `Login.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 2 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines.",
+    "filepath": "secure-event-platform/client/src/main.jsx",
+    "summary": "The `main.jsx` module encapsulates localized software operations. ",
     "keyFunctions": [
       {
-        "name": "Login()",
-        "purpose": "Coordinates the execution cycle for the local `Login` workflow handle inside the runtime sequence."
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/server/controllers/authController.js",
+    "summary": "The `authController.js` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/server/middleware/authMiddleware.js",
+    "summary": "The `authMiddleware.js` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/server/models/User.js",
+    "summary": "The `User.js` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/server/routes/authRoutes.js",
+    "summary": "The `authRoutes.js` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/server/routes/userRoutes.js",
+    "summary": "The `userRoutes.js` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/server/server.js",
+    "summary": "The `server.js` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/server/utils/generateToken.js",
+    "summary": "The `generateToken.js` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "generateToken()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/client/src/pages/DashboardPage.jsx",
+    "summary": "The `DashboardPage.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "DashboardPage()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/client/src/pages/HomePage.jsx",
+    "summary": "The `HomePage.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "HomePage()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/client/src/pages/LoginPage.jsx",
+    "summary": "The `LoginPage.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "LoginPage()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/client/src/pages/RegisterPage.jsx",
+    "summary": "The `RegisterPage.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "RegisterPage()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/client/src/components/Navbar.jsx",
+    "summary": "The `Navbar.jsx` module encapsulates localized software operations. It coordinates 2 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "Navbar()",
+        "purpose": "Executes operational processing for internal runtime sequences."
       },
       {
-        "name": "handleChange()",
-        "purpose": "Asynchronously intercepts and captures application event signals to sequence response loops."
+        "name": "logoutHandler()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/client/src/components/ProtectedRoute.jsx",
+    "summary": "The `ProtectedRoute.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "ProtectedRoute()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/client/src/context/AuthContext.jsx",
+    "summary": "The `AuthContext.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "AuthProvider()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/client/src/layouts/MainLayout.jsx",
+    "summary": "The `MainLayout.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "MainLayout()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/client/src/services/api.js",
+    "summary": "The `api.js` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
+      }
+    ]
+  },
+  {
+    "filepath": "secure-event-platform/client/src/services/authService.js",
+    "summary": "The `authService.js` module encapsulates localized software operations. ",
+    "keyFunctions": [
+      {
+        "name": "defaultConfig",
+        "purpose": "Exposes core layout constants or system assets."
       }
     ]
   }

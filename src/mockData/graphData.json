@@ -1,91 +1,752 @@
 {
   "nodes": [
     {
-      "id": "Dashboard.jsx",
+      "id": "secure-event-platform/client/eslint.config.js",
       "position": {
-        "x": 120,
-        "y": 220
+        "x": 160,
+        "y": 80
       },
       "data": {
-        "label": "Dashboard.jsx"
+        "label": "eslint.config.js"
       }
     },
     {
-      "id": "Hangar.jsx",
+      "id": "secure-event-platform/client/vite.config.js",
       "position": {
-        "x": 380,
-        "y": 220
+        "x": 400,
+        "y": 80
       },
       "data": {
-        "label": "Hangar.jsx"
+        "label": "vite.config.js"
       }
     },
     {
-      "id": "Landing.jsx",
+      "id": "secure-event-platform/server/config/db.js",
       "position": {
         "x": 640,
-        "y": 220
+        "y": 80
       },
       "data": {
-        "label": "Landing.jsx"
+        "label": "db.js"
       }
     },
     {
-      "id": "Login (2).jsx",
+      "id": "secure-event-platform/client/src/App.jsx",
       "position": {
-        "x": 900,
-        "y": 220
+        "x": -480,
+        "y": 240
       },
       "data": {
-        "label": "Login (2).jsx"
+        "label": "App.jsx"
       }
     },
     {
-      "id": "Login.jsx",
+      "id": "secure-event-platform/client/src/main.jsx",
       "position": {
-        "x": 1160,
-        "y": 220
+        "x": -260,
+        "y": 240
       },
       "data": {
-        "label": "Login.jsx"
+        "label": "main.jsx"
+      }
+    },
+    {
+      "id": "secure-event-platform/server/controllers/authController.js",
+      "position": {
+        "x": -40,
+        "y": 240
+      },
+      "data": {
+        "label": "authController.js"
+      }
+    },
+    {
+      "id": "secure-event-platform/server/middleware/authMiddleware.js",
+      "position": {
+        "x": 180,
+        "y": 240
+      },
+      "data": {
+        "label": "authMiddleware.js"
+      }
+    },
+    {
+      "id": "secure-event-platform/server/models/User.js",
+      "position": {
+        "x": 400,
+        "y": 240
+      },
+      "data": {
+        "label": "User.js"
+      }
+    },
+    {
+      "id": "secure-event-platform/server/routes/authRoutes.js",
+      "position": {
+        "x": 620,
+        "y": 240
+      },
+      "data": {
+        "label": "authRoutes.js"
+      }
+    },
+    {
+      "id": "secure-event-platform/server/routes/userRoutes.js",
+      "position": {
+        "x": 840,
+        "y": 240
+      },
+      "data": {
+        "label": "userRoutes.js"
+      }
+    },
+    {
+      "id": "secure-event-platform/server/server.js",
+      "position": {
+        "x": 1060,
+        "y": 240
+      },
+      "data": {
+        "label": "server.js"
+      }
+    },
+    {
+      "id": "secure-event-platform/server/utils/generateToken.js",
+      "position": {
+        "x": 1280,
+        "y": 240
+      },
+      "data": {
+        "label": "generateToken.js"
+      }
+    },
+    {
+      "id": "secure-event-platform/client/src/pages/DashboardPage.jsx",
+      "position": {
+        "x": 100,
+        "y": 420
+      },
+      "data": {
+        "label": "DashboardPage.jsx"
+      }
+    },
+    {
+      "id": "secure-event-platform/client/src/pages/HomePage.jsx",
+      "position": {
+        "x": 300,
+        "y": 420
+      },
+      "data": {
+        "label": "HomePage.jsx"
+      }
+    },
+    {
+      "id": "secure-event-platform/client/src/pages/LoginPage.jsx",
+      "position": {
+        "x": 500,
+        "y": 420
+      },
+      "data": {
+        "label": "LoginPage.jsx"
+      }
+    },
+    {
+      "id": "secure-event-platform/client/src/pages/RegisterPage.jsx",
+      "position": {
+        "x": 700,
+        "y": 420
+      },
+      "data": {
+        "label": "RegisterPage.jsx"
+      }
+    },
+    {
+      "id": "secure-event-platform/client/src/components/Navbar.jsx",
+      "position": {
+        "x": -200,
+        "y": 600
+      },
+      "data": {
+        "label": "Navbar.jsx"
+      }
+    },
+    {
+      "id": "secure-event-platform/client/src/components/ProtectedRoute.jsx",
+      "position": {
+        "x": 40,
+        "y": 600
+      },
+      "data": {
+        "label": "ProtectedRoute.jsx"
+      }
+    },
+    {
+      "id": "secure-event-platform/client/src/context/AuthContext.jsx",
+      "position": {
+        "x": 280,
+        "y": 600
+      },
+      "data": {
+        "label": "AuthContext.jsx"
+      }
+    },
+    {
+      "id": "secure-event-platform/client/src/layouts/MainLayout.jsx",
+      "position": {
+        "x": 520,
+        "y": 600
+      },
+      "data": {
+        "label": "MainLayout.jsx"
+      }
+    },
+    {
+      "id": "secure-event-platform/client/src/services/api.js",
+      "position": {
+        "x": 760,
+        "y": 600
+      },
+      "data": {
+        "label": "api.js"
+      }
+    },
+    {
+      "id": "secure-event-platform/client/src/services/authService.js",
+      "position": {
+        "x": 1000,
+        "y": 600
+      },
+      "data": {
+        "label": "authService.js"
       }
     }
   ],
   "edges": [
     {
-      "id": "e0",
-      "source": "Dashboard.jsx",
-      "target": "Hangar.jsx",
+      "id": "e-secure-event-platform/client/eslint.config.js-secure-event-platform/client/vite.config.js-0",
+      "source": "secure-event-platform/client/eslint.config.js",
+      "target": "secure-event-platform/client/vite.config.js",
+      "type": "smoothstep",
       "animated": true,
       "style": {
-        "stroke": "#38bdf8"
+        "stroke": "#f59e0b",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#f59e0b"
       }
     },
     {
-      "id": "e1",
-      "source": "Hangar.jsx",
-      "target": "Landing.jsx",
+      "id": "e-secure-event-platform/client/src/App.jsx-secure-event-platform/client/src/components/ProtectedRoute.jsx-0",
+      "source": "secure-event-platform/client/src/App.jsx",
+      "target": "secure-event-platform/client/src/components/ProtectedRoute.jsx",
+      "type": "smoothstep",
       "animated": true,
       "style": {
-        "stroke": "#38bdf8"
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
       }
     },
     {
-      "id": "e2",
-      "source": "Landing.jsx",
-      "target": "Login (2).jsx",
+      "id": "e-secure-event-platform/client/src/App.jsx-secure-event-platform/client/src/layouts/MainLayout.jsx-1",
+      "source": "secure-event-platform/client/src/App.jsx",
+      "target": "secure-event-platform/client/src/layouts/MainLayout.jsx",
+      "type": "smoothstep",
       "animated": true,
       "style": {
-        "stroke": "#38bdf8"
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
       }
     },
     {
-      "id": "e3",
-      "source": "Login (2).jsx",
-      "target": "Login.jsx",
+      "id": "e-secure-event-platform/client/src/App.jsx-secure-event-platform/client/src/pages/DashboardPage.jsx-2",
+      "source": "secure-event-platform/client/src/App.jsx",
+      "target": "secure-event-platform/client/src/pages/DashboardPage.jsx",
+      "type": "smoothstep",
       "animated": true,
       "style": {
-        "stroke": "#38bdf8"
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/App.jsx-secure-event-platform/client/src/pages/HomePage.jsx-3",
+      "source": "secure-event-platform/client/src/App.jsx",
+      "target": "secure-event-platform/client/src/pages/HomePage.jsx",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/App.jsx-secure-event-platform/client/src/pages/LoginPage.jsx-4",
+      "source": "secure-event-platform/client/src/App.jsx",
+      "target": "secure-event-platform/client/src/pages/LoginPage.jsx",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/App.jsx-secure-event-platform/client/src/pages/RegisterPage.jsx-5",
+      "source": "secure-event-platform/client/src/App.jsx",
+      "target": "secure-event-platform/client/src/pages/RegisterPage.jsx",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/main.jsx-secure-event-platform/client/src/App.jsx-0",
+      "source": "secure-event-platform/client/src/main.jsx",
+      "target": "secure-event-platform/client/src/App.jsx",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/main.jsx-secure-event-platform/client/src/context/AuthContext.jsx-1",
+      "source": "secure-event-platform/client/src/main.jsx",
+      "target": "secure-event-platform/client/src/context/AuthContext.jsx",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/server/controllers/authController.js-secure-event-platform/server/models/User.js-0",
+      "source": "secure-event-platform/server/controllers/authController.js",
+      "target": "secure-event-platform/server/models/User.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/server/controllers/authController.js-secure-event-platform/server/utils/generateToken.js-1",
+      "source": "secure-event-platform/server/controllers/authController.js",
+      "target": "secure-event-platform/server/utils/generateToken.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/server/middleware/authMiddleware.js-secure-event-platform/server/models/User.js-0",
+      "source": "secure-event-platform/server/middleware/authMiddleware.js",
+      "target": "secure-event-platform/server/models/User.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/server/routes/authRoutes.js-secure-event-platform/server/controllers/authController.js-0",
+      "source": "secure-event-platform/server/routes/authRoutes.js",
+      "target": "secure-event-platform/server/controllers/authController.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/server/routes/authRoutes.js-secure-event-platform/server/models/User.js-1",
+      "source": "secure-event-platform/server/routes/authRoutes.js",
+      "target": "secure-event-platform/server/models/User.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/server/routes/userRoutes.js-secure-event-platform/server/middleware/authMiddleware.js-0",
+      "source": "secure-event-platform/server/routes/userRoutes.js",
+      "target": "secure-event-platform/server/middleware/authMiddleware.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/server/server.js-secure-event-platform/client/src/services/api.js-0",
+      "source": "secure-event-platform/server/server.js",
+      "target": "secure-event-platform/client/src/services/api.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/server/server.js-secure-event-platform/server/config/db.js-1",
+      "source": "secure-event-platform/server/server.js",
+      "target": "secure-event-platform/server/config/db.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/server/server.js-secure-event-platform/server/routes/authRoutes.js-2",
+      "source": "secure-event-platform/server/server.js",
+      "target": "secure-event-platform/server/routes/authRoutes.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/server/server.js-secure-event-platform/server/routes/userRoutes.js-3",
+      "source": "secure-event-platform/server/server.js",
+      "target": "secure-event-platform/server/routes/userRoutes.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#ec4899",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#ec4899"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/pages/LoginPage.jsx-secure-event-platform/client/src/context/AuthContext.jsx-0",
+      "source": "secure-event-platform/client/src/pages/LoginPage.jsx",
+      "target": "secure-event-platform/client/src/context/AuthContext.jsx",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#10b981",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#10b981"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/pages/LoginPage.jsx-secure-event-platform/client/src/services/authService.js-1",
+      "source": "secure-event-platform/client/src/pages/LoginPage.jsx",
+      "target": "secure-event-platform/client/src/services/authService.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#10b981",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#10b981"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/pages/LoginPage.jsx-secure-event-platform/server/models/User.js-2",
+      "source": "secure-event-platform/client/src/pages/LoginPage.jsx",
+      "target": "secure-event-platform/server/models/User.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#10b981",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#10b981"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/pages/RegisterPage.jsx-secure-event-platform/client/src/services/authService.js-0",
+      "source": "secure-event-platform/client/src/pages/RegisterPage.jsx",
+      "target": "secure-event-platform/client/src/services/authService.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#10b981",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#10b981"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/pages/RegisterPage.jsx-secure-event-platform/server/models/User.js-1",
+      "source": "secure-event-platform/client/src/pages/RegisterPage.jsx",
+      "target": "secure-event-platform/server/models/User.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#10b981",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#10b981"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/components/Navbar.jsx-secure-event-platform/client/src/context/AuthContext.jsx-0",
+      "source": "secure-event-platform/client/src/components/Navbar.jsx",
+      "target": "secure-event-platform/client/src/context/AuthContext.jsx",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#a855f7",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#a855f7"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/components/Navbar.jsx-secure-event-platform/server/models/User.js-1",
+      "source": "secure-event-platform/client/src/components/Navbar.jsx",
+      "target": "secure-event-platform/server/models/User.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#a855f7",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#a855f7"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/components/ProtectedRoute.jsx-secure-event-platform/client/src/context/AuthContext.jsx-0",
+      "source": "secure-event-platform/client/src/components/ProtectedRoute.jsx",
+      "target": "secure-event-platform/client/src/context/AuthContext.jsx",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#a855f7",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#a855f7"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/context/AuthContext.jsx-secure-event-platform/server/models/User.js-0",
+      "source": "secure-event-platform/client/src/context/AuthContext.jsx",
+      "target": "secure-event-platform/server/models/User.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#a855f7",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#a855f7"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/layouts/MainLayout.jsx-secure-event-platform/client/src/components/Navbar.jsx-0",
+      "source": "secure-event-platform/client/src/layouts/MainLayout.jsx",
+      "target": "secure-event-platform/client/src/components/Navbar.jsx",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#a855f7",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#a855f7"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/services/authService.js-secure-event-platform/client/src/services/api.js-0",
+      "source": "secure-event-platform/client/src/services/authService.js",
+      "target": "secure-event-platform/client/src/services/api.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#a855f7",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#a855f7"
+      }
+    },
+    {
+      "id": "e-secure-event-platform/client/src/services/authService.js-secure-event-platform/server/models/User.js-1",
+      "source": "secure-event-platform/client/src/services/authService.js",
+      "target": "secure-event-platform/server/models/User.js",
+      "type": "smoothstep",
+      "animated": true,
+      "style": {
+        "stroke": "#a855f7",
+        "strokeWidth": 1.5
+      },
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 15,
+        "height": 15,
+        "color": "#a855f7"
       }
     }
   ]

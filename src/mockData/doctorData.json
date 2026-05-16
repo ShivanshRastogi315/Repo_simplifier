@@ -1,11 +1,29 @@
 {
-  "status": "Ready to Fix",
-  "detectedFiles": ["package.json"],
+  "status": "Setup Required",
+  "detectedFiles": [
+    "package.json"
+  ],
+  "projectStack": "React, Create React App",
+  "detectedPorts": [
+    "3000"
+  ],
+  "requiredEnvVars": 1,
   "issuesFound": [
     {
-      "type": "Dependency Mismatch",
-      "description": "Legacy peer dependency conflicts detected within Webpack configuration.",
-      "fixCommand": "npm install --legacy-peer-deps"
+      "type": "Missing Environment Configuration",
+      "description": "The application requires 1 environment variables but no .env file exists.",
+      "severity": "high",
+      "fixCommand": "Create a .env file manually",
+      "autoFixable": false
     }
-  ]
+  ],
+  "setupSteps": [
+    "Install Node.js (v16+ recommended)",
+    "Run: npm install",
+    "Run: npm start"
+  ],
+  "startupCommands": [
+    "npm start"
+  ],
+  "quickStartScript": "#!/bin/bash\n# Auto-generated setup script\n\necho \"📦 Installing dependencies...\"\nnpm install\n\necho \"🚀 Starting application...\"\nnpm start"
 }

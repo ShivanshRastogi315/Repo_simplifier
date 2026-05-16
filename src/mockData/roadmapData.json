@@ -3,42 +3,30 @@
   "steps": [
     {
       "stepNumber": 1,
-      "title": "Evaluate app Architecture",
-      "targetFile": "app.js",
-      "description": "The `app.js` module encapsulates localized software rules handling the system's operational lifecycle."
-    },
-    {
-      "stepNumber": 2,
-      "title": "Evaluate auth Architecture",
-      "targetFile": "auth.js",
-      "description": "The `auth.js` module encapsulates localized software rules handling the system's operational lifecycle."
-    },
-    {
-      "stepNumber": 3,
       "title": "Evaluate Dashboard Architecture",
       "targetFile": "Dashboard.jsx",
       "description": "The `Dashboard.jsx` module encapsulates localized software rules handling the system's operational lifecycle."
     },
     {
-      "stepNumber": 4,
+      "stepNumber": 2,
       "title": "Evaluate Hangar Architecture",
       "targetFile": "Hangar.jsx",
       "description": "The `Hangar.jsx` module encapsulates localized software rules handling the system's operational lifecycle."
     },
     {
-      "stepNumber": 5,
+      "stepNumber": 3,
       "title": "Evaluate Landing Architecture",
       "targetFile": "Landing.jsx",
       "description": "The `Landing.jsx` module encapsulates localized software rules handling the system's operational lifecycle."
     },
     {
-      "stepNumber": 6,
+      "stepNumber": 4,
       "title": "Evaluate Login (2) Architecture",
       "targetFile": "Login (2).jsx",
       "description": "The `Login (2).jsx` module encapsulates localized software rules handling the system's operational lifecycle."
     },
     {
-      "stepNumber": 7,
+      "stepNumber": 5,
       "title": "Evaluate Login Architecture",
       "targetFile": "Login.jsx",
       "description": "The `Login.jsx` module encapsulates localized software rules handling the system's operational lifecycle."

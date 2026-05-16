@@ -1,7 +1,42 @@
 {
-  "ticketId": "AEGIS-001",
-  "title": "Enforce Strict 8-Character Password Validation",
-  "difficulty": "Good First Issue",
-  "context": "The `auth.js` module currently handles basic string verification for logins but permits weaker hardcoded options.",
-  "instructions": "Locate `loginUser()` in `auth.js`. Modify the conditional check to ensure `password.length >= 8` before evaluating credentials. Test verification status by starting the app interface."
+  "ticketId": "AEGIS-411",
+  "title": "Remove Duplicate Login (2) Component",
+  "difficulty": "Easy",
+  "type": "duplicate_file",
+  "context": "The dummy-repo contains a duplicate file \"Login.jsx\" that is identical to \"Login (2).jsx\". This creates redundant nodes in the architecture graph and confuses the visualization.",
+  "instructions": "Delete the file \"src/dummy-repo/Login.jsx\", then run \"node generateData.js\" to regenerate the mock data. Verify that the graph now shows 4 nodes instead of 5.",
+  "filesToInvestigate": [
+    "Login.jsx",
+    "Login (2).jsx",
+    "generateData.js",
+    "graphData.json"
+  ],
+  "acceptanceCriteria": [
+    "The file \"Login.jsx\" has been deleted",
+    "Mock data has been regenerated",
+    "Architecture graph shows 4 unique nodes",
+    "No duplicate entries in roadmap or file summaries"
+  ],
+  "knowledgeCheck": [
+    {
+      "question": "What is the primary purpose of the \"Login()\" function in Login.jsx?",
+      "hint": "Coordinates the execution cycle for the local `Login` workflow handle inside the runtime sequence."
+    },
+    {
+      "question": "What regex pattern does generateData.js use to detect function declarations in the code?",
+      "hint": "Check line 15 of generateData.js"
+    },
+    {
+      "question": "How many total files are currently in the dummy-repo directory?",
+      "hint": "There are 5 files"
+    },
+    {
+      "question": "Which three JSON files does generateData.js create in the mockData directory?",
+      "hint": "graphData.json, explainData.json, and roadmapData.json"
+    },
+    {
+      "question": "Which React component is responsible for rendering the interactive architecture graph?",
+      "hint": "ArchitectureGraph.jsx uses ReactFlow"
+    }
+  ]
 }

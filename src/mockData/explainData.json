@@ -1,25 +1,5 @@
 [
   {
-    "filepath": "app.js",
-    "summary": "The `app.js` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 1 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers.",
-    "keyFunctions": [
-      {
-        "name": "startApp()",
-        "purpose": "Coordinates the execution cycle for the local `startApp` workflow handle inside the runtime sequence."
-      }
-    ]
-  },
-  {
-    "filepath": "auth.js",
-    "summary": "The `auth.js` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 1 unique execution routines. Deep scanning indicates a low-overhead utility model designed to maintain clean separation of concerns within neighboring logical modules.",
-    "keyFunctions": [
-      {
-        "name": "loginUser()",
-        "purpose": "Coordinates the execution cycle for the local `loginUser` workflow handle inside the runtime sequence."
-      }
-    ]
-  },
-  {
     "filepath": "Dashboard.jsx",
     "summary": "The `Dashboard.jsx` module encapsulates localized software rules handling the system's operational lifecycle. Architecturally, it registers structural hooks for 5 unique execution routines. Deep code scanning shows this module directly drives execution around dependency management layers as well as external network I/O requests as well as stateful UI component rendering rendering cascades as well as data layer persistence routines as well as payload encryption verification protocols.",
     "keyFunctions": [

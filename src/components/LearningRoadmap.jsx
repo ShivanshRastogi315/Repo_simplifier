@@ -78,46 +78,108 @@ export default function LearningRoadmap({ onSelectFile, selectedFile }) {
       <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.08)', margin: '10px 0' }} />
 
       {/* Environment Doctor Segment */}
-      <div style={{ background: 'rgba(30, 41, 59, 0.4)', border: '1px solid rgba(255,255,255,0.05)', padding: '15px', borderRadius: '12px' }}>
+      <div style={{ background: 'rgba(30, 41, 59, 0.4)', border: '1px solid rgba(255,255,255,0.05)', padding: '15px', borderRadius: '12px', maxHeight: '500px', overflowY: 'auto' }}>
         <h3 style={{ fontSize: '1.05rem', margin: '0 0 5px 0', display: 'flex', alignItems: 'center', gap: '8px', color: '#f1f5f9', fontWeight: '700' }}>
           <ShieldAlert size={18} color="#f59e0b" /> Environment Doctor
         </h3>
         <p style={{ color: '#94a3b8', fontSize: '0.75rem', margin: '0 0 12px 0', lineHeight: '1.3' }}>
-          Scans project configurations for build alignment bottlenecks.
+          Analyzes your repository and generates setup instructions.
         </p>
         
-        <div style={{ background: '#0f172a', border: '1px solid rgba(255,255,255,0.05)', padding: '10px', borderRadius: '6px', fontSize: '0.8rem', marginBottom: '12px' }}>
-          <div style={{ color: fixed ? '#4ade80' : '#f59e0b', fontWeight: '700', marginBottom: '4px' }}>
-            STATUS: {fixed ? '✅ System Operational' : '⚠️ Issue Detected'}
+        {/* Project Stack Info */}
+        <div style={{ background: '#0f172a', border: '1px solid rgba(56, 189, 248, 0.3)', padding: '10px', borderRadius: '6px', marginBottom: '12px' }}>
+          <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginBottom: '4px' }}>DETECTED STACK</div>
+          <div style={{ color: '#38bdf8', fontWeight: '700', fontSize: '0.85rem', fontFamily: 'monospace' }}>
+            {doctorData.projectStack}
           </div>
-          <div style={{ color: '#94a3b8', fontSize: '0.75rem' }}>
-            {fixed ? 'All local modules synced.' : doctorData.issuesFound[0].description}
-          </div>
+          {doctorData.detectedPorts && doctorData.detectedPorts.length > 0 && (
+            <div style={{ marginTop: '6px', fontSize: '0.75rem', color: '#94a3b8' }}>
+              Ports: {doctorData.detectedPorts.map(p => `localhost:${p}`).join(', ')}
+            </div>
+          )}
         </div>
 
-        {!fixed && (
-          <button 
-            onClick={triggerFix}
-            disabled={runningFix}
-            style={{
-              width: '100%',
+        {/* Issues Found */}
+        <div style={{ marginBottom: '12px' }}>
+          <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>
+            STATUS: {doctorData.status}
+          </div>
+          {doctorData.issuesFound.map((issue, idx) => (
+            <div key={idx} style={{
+              background: '#0f172a',
+              border: `1px solid ${issue.severity === 'critical' ? '#ff003c' : issue.severity === 'high' ? '#f59e0b' : issue.severity === 'success' ? '#4ade80' : '#64748b'}`,
               padding: '10px',
-              backgroundColor: '#f59e0b',
-              color: '#0f172a',
-              border: 'none',
               borderRadius: '6px',
-              fontWeight: '700',
-              fontSize: '0.8rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              opacity: runningFix ? 0.7 : 1
-            }}
-          >
-            <Terminal size={14} /> {runningFix ? 'Applying Target Fix...' : 'Run Auto-Setup Script'}
-          </button>
+              marginBottom: '8px',
+              borderLeft: `3px solid ${issue.severity === 'critical' ? '#ff003c' : issue.severity === 'high' ? '#f59e0b' : issue.severity === 'success' ? '#4ade80' : '#64748b'}`
+            }}>
+              <div style={{
+                color: issue.severity === 'critical' ? '#ff003c' : issue.severity === 'high' ? '#f59e0b' : issue.severity === 'success' ? '#4ade80' : '#94a3b8',
+                fontWeight: '700',
+                fontSize: '0.75rem',
+                marginBottom: '4px'
+              }}>
+                {issue.severity === 'critical' ? '🚨' : issue.severity === 'high' ? '⚠️' : issue.severity === 'success' ? '✅' : 'ℹ️'} {issue.type}
+              </div>
+              <div style={{ color: '#94a3b8', fontSize: '0.7rem', marginBottom: issue.fixCommand ? '6px' : '0' }}>
+                {issue.description}
+              </div>
+              {issue.fixCommand && (
+                <div style={{
+                  background: 'rgba(0,0,0,0.3)',
+                  padding: '6px 8px',
+                  borderRadius: '4px',
+                  fontFamily: 'monospace',
+                  fontSize: '0.7rem',
+                  color: '#4ade80'
+                }}>
+                  $ {issue.fixCommand}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Setup Steps */}
+        {doctorData.setupSteps && doctorData.setupSteps.length > 0 && (
+          <div style={{ marginBottom: '12px' }}>
+            <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>
+              SETUP STEPS
+            </div>
+            {doctorData.setupSteps.map((step, idx) => (
+              <div key={idx} style={{
+                fontSize: '0.7rem',
+                color: '#94a3b8',
+                marginBottom: '4px',
+                paddingLeft: '12px',
+                borderLeft: '2px solid #38bdf8'
+              }}>
+                {idx + 1}. {step}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Quick Start Script */}
+        {doctorData.quickStartScript && (
+          <div>
+            <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>
+              QUICK START SCRIPT
+            </div>
+            <div style={{
+              background: '#000',
+              padding: '10px',
+              borderRadius: '6px',
+              fontFamily: 'monospace',
+              fontSize: '0.65rem',
+              color: '#4ade80',
+              whiteSpace: 'pre-wrap',
+              maxHeight: '150px',
+              overflowY: 'auto'
+            }}>
+              {doctorData.quickStartScript}
+            </div>
+          </div>
         )}
       </div>
     </div>

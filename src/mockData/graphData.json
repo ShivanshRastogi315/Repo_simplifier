@@ -1,29 +1,9 @@
 {
   "nodes": [
     {
-      "id": "app.js",
-      "position": {
-        "x": 120,
-        "y": 220
-      },
-      "data": {
-        "label": "app.js"
-      }
-    },
-    {
-      "id": "auth.js",
-      "position": {
-        "x": 380,
-        "y": 220
-      },
-      "data": {
-        "label": "auth.js"
-      }
-    },
-    {
       "id": "Dashboard.jsx",
       "position": {
-        "x": 640,
+        "x": 120,
         "y": 220
       },
       "data": {
@@ -33,7 +13,7 @@
     {
       "id": "Hangar.jsx",
       "position": {
-        "x": 900,
+        "x": 380,
         "y": 220
       },
       "data": {
@@ -43,7 +23,7 @@
     {
       "id": "Landing.jsx",
       "position": {
-        "x": 1160,
+        "x": 640,
         "y": 220
       },
       "data": {
@@ -53,7 +33,7 @@
     {
       "id": "Login (2).jsx",
       "position": {
-        "x": 1420,
+        "x": 900,
         "y": 220
       },
       "data": {
@@ -63,7 +43,7 @@
     {
       "id": "Login.jsx",
       "position": {
-        "x": 1680,
+        "x": 1160,
         "y": 220
       },
       "data": {
@@ -74,24 +54,6 @@
   "edges": [
     {
       "id": "e0",
-      "source": "app.js",
-      "target": "auth.js",
-      "animated": true,
-      "style": {
-        "stroke": "#38bdf8"
-      }
-    },
-    {
-      "id": "e1",
-      "source": "auth.js",
-      "target": "Dashboard.jsx",
-      "animated": true,
-      "style": {
-        "stroke": "#38bdf8"
-      }
-    },
-    {
-      "id": "e2",
       "source": "Dashboard.jsx",
       "target": "Hangar.jsx",
       "animated": true,
@@ -100,7 +62,7 @@
       }
     },
     {
-      "id": "e3",
+      "id": "e1",
       "source": "Hangar.jsx",
       "target": "Landing.jsx",
       "animated": true,
@@ -109,7 +71,7 @@
       }
     },
     {
-      "id": "e4",
+      "id": "e2",
       "source": "Landing.jsx",
       "target": "Login (2).jsx",
       "animated": true,
@@ -118,7 +80,7 @@
       }
     },
     {
-      "id": "e5",
+      "id": "e3",
       "source": "Login (2).jsx",
       "target": "Login.jsx",
       "animated": true,

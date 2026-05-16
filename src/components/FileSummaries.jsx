@@ -96,18 +96,70 @@ export default function FileSummaries({ selectedFile }) {
             <Sparkles size={14} /> Synthesize Starter Ticket
           </button>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <div style={{ background: '#0f172a', padding: '10px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.05)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', fontWeight: 'bold', marginBottom: '4px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '400px', overflowY: 'auto' }}>
+            <div style={{ background: '#0f172a', padding: '12px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              {/* Header */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', fontWeight: 'bold', marginBottom: '8px', paddingBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                 <span style={{ color: '#818cf8' }}>{ticketData.ticketId}</span>
-                <span style={{ color: '#4ade80', background: 'rgba(74,222,128,0.1)', padding: '1px 6px', borderRadius: '4px' }}>{ticketData.difficulty}</span>
+                <span style={{ color: '#4ade80', background: 'rgba(74,222,128,0.1)', padding: '2px 8px', borderRadius: '4px' }}>{ticketData.difficulty}</span>
               </div>
-              <div style={{ fontWeight: '700', fontSize: '0.85rem', color: '#f1f5f9', marginBottom: '6px' }}>{ticketData.title}</div>
-              <div style={{ fontSize: '0.75rem', color: '#94a3b8', lineHeight: '1.3' }}>{ticketData.instructions}</div>
+              
+              {/* Title */}
+              <div style={{ fontWeight: '700', fontSize: '0.9rem', color: '#f1f5f9', marginBottom: '10px' }}>{ticketData.title}</div>
+              
+              {/* Context */}
+              <div style={{ fontSize: '0.75rem', color: '#94a3b8', lineHeight: '1.4', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                <strong style={{ color: '#cbd5e0' }}>Context:</strong> {ticketData.context}
+              </div>
+              
+              {/* Instructions */}
+              <div style={{ fontSize: '0.75rem', color: '#94a3b8', lineHeight: '1.4', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                <strong style={{ color: '#cbd5e0' }}>Instructions:</strong> {ticketData.instructions}
+              </div>
+              
+              {/* Files to Investigate */}
+              {ticketData.filesToInvestigate && ticketData.filesToInvestigate.length > 0 && (
+                <div style={{ marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>Files to Investigate:</div>
+                  {ticketData.filesToInvestigate.map((file, idx) => (
+                    <div key={idx} style={{ fontSize: '0.7rem', color: '#818cf8', fontFamily: 'monospace', marginBottom: '3px' }}>
+                      • {file}
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              {/* Acceptance Criteria */}
+              {ticketData.acceptanceCriteria && ticketData.acceptanceCriteria.length > 0 && (
+                <div style={{ marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>Acceptance Criteria:</div>
+                  {ticketData.acceptanceCriteria.map((criteria, idx) => (
+                    <div key={idx} style={{ fontSize: '0.7rem', color: '#94a3b8', marginBottom: '3px', display: 'flex', gap: '6px' }}>
+                      <span style={{ color: '#4ade80' }}>✓</span> {criteria}
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              {/* Knowledge Check */}
+              {ticketData.knowledgeCheck && ticketData.knowledgeCheck.length > 0 && (
+                <div>
+                  <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>Knowledge Check:</div>
+                  {ticketData.knowledgeCheck.map((q, idx) => (
+                    <div key={idx} style={{ fontSize: '0.7rem', color: '#94a3b8', marginBottom: '8px', paddingLeft: '8px', borderLeft: '2px solid #818cf8' }}>
+                      <div style={{ marginBottom: '2px' }}><strong>Q{idx + 1}:</strong> {q.question}</div>
+                      {q.hint && <div style={{ fontSize: '0.65rem', color: '#64748b', fontStyle: 'italic' }}>Hint: {q.hint}</div>}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            <button 
+            
+            <button
               onClick={() => setShowTicket(false)}
-              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: '#94a3b8', fontSize: '0.75rem', padding: '6px', borderRadius: '4px', cursor: 'pointer' }}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: '#94a3b8', fontSize: '0.75rem', padding: '6px', borderRadius: '4px', cursor: 'pointer', transition: 'all 0.2s' }}
+              onMouseOver={(e) => { e.currentTarget.style.borderColor = '#818cf8'; e.currentTarget.style.color = '#818cf8'; }}
+              onMouseOut={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#94a3b8'; }}
             >
               Reset Simulation
             </button>

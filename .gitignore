@@ -140,4 +140,10 @@ dist
 # Vite files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Temporary repository clones
+temp-repos/
+
+# Build output
+build/
 .vite/

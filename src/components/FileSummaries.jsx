@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
 import { FileCode, Code, CheckSquare, Sparkles } from 'lucide-react';
-import explainData from '../mockData/explainData.json';
-import ticketData from '../mockData/ticketData.json';
 
-export default function FileSummaries({ selectedFile }) {
+export default function FileSummaries({ selectedFile, summariesData, ticketData }) {
   const [showTicket, setShowTicket] = useState(false);
+  
+  // Use summariesData prop directly (it's already the explainData array from backend)
+  const explainData = summariesData || [];
+  const ticket = ticketData || {
+    ticketId: 'N/A',
+    title: 'No ticket available',
+    difficulty: 'N/A',
+    context: '',
+    instructions: '',
+    filesToInvestigate: [],
+    acceptanceCriteria: [],
+    knowledgeCheck: []
+  };
+  
   const fileInfo = explainData.find(item => item.filepath === selectedFile);
 
   return (
@@ -44,7 +56,7 @@ export default function FileSummaries({ selectedFile }) {
             </p>
 
             <h3 style={{ color: '#cbd5e0', fontSize: '0.9rem', marginBottom: '10px', fontWeight: '600' }}>Key Functions</h3>
-            {fileInfo.keyFunctions.map((func, idx) => (
+            {fileInfo.keyFunctions?.map((func, idx) => (
               <div key={idx} style={{ background: '#0f172a', padding: '10px', borderRadius: '6px', marginBottom: '10px', borderLeft: '3px solid #38bdf8' }}>
                 <div style={{ fontWeight: 'bold', fontSize: '0.8rem', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'monospace' }}>
                   <Code size={14} color="#4ade80" /> {func.name}
@@ -100,28 +112,28 @@ export default function FileSummaries({ selectedFile }) {
             <div style={{ background: '#0f172a', padding: '12px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.05)' }}>
               {/* Header */}
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', fontWeight: 'bold', marginBottom: '8px', paddingBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                <span style={{ color: '#818cf8' }}>{ticketData.ticketId}</span>
-                <span style={{ color: '#4ade80', background: 'rgba(74,222,128,0.1)', padding: '2px 8px', borderRadius: '4px' }}>{ticketData.difficulty}</span>
+                <span style={{ color: '#818cf8' }}>{ticket.ticketId}</span>
+                <span style={{ color: '#4ade80', background: 'rgba(74,222,128,0.1)', padding: '2px 8px', borderRadius: '4px' }}>{ticket.difficulty}</span>
               </div>
               
               {/* Title */}
-              <div style={{ fontWeight: '700', fontSize: '0.9rem', color: '#f1f5f9', marginBottom: '10px' }}>{ticketData.title}</div>
+              <div style={{ fontWeight: '700', fontSize: '0.9rem', color: '#f1f5f9', marginBottom: '10px' }}>{ticket.title}</div>
               
               {/* Context */}
               <div style={{ fontSize: '0.75rem', color: '#94a3b8', lineHeight: '1.4', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                <strong style={{ color: '#cbd5e0' }}>Context:</strong> {ticketData.context}
+                <strong style={{ color: '#cbd5e0' }}>Context:</strong> {ticket.context}
               </div>
               
               {/* Instructions */}
               <div style={{ fontSize: '0.75rem', color: '#94a3b8', lineHeight: '1.4', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                <strong style={{ color: '#cbd5e0' }}>Instructions:</strong> {ticketData.instructions}
+                <strong style={{ color: '#cbd5e0' }}>Instructions:</strong> {ticket.instructions}
               </div>
               
               {/* Files to Investigate */}
-              {ticketData.filesToInvestigate && ticketData.filesToInvestigate.length > 0 && (
+              {ticket.filesToInvestigate && ticket.filesToInvestigate.length > 0 && (
                 <div style={{ marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                   <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>Files to Investigate:</div>
-                  {ticketData.filesToInvestigate.map((file, idx) => (
+                  {ticket.filesToInvestigate.map((file, idx) => (
                     <div key={idx} style={{ fontSize: '0.7rem', color: '#818cf8', fontFamily: 'monospace', marginBottom: '3px' }}>
                       • {file}
                     </div>
@@ -130,10 +142,10 @@ export default function FileSummaries({ selectedFile }) {
               )}
               
               {/* Acceptance Criteria */}
-              {ticketData.acceptanceCriteria && ticketData.acceptanceCriteria.length > 0 && (
+              {ticket.acceptanceCriteria && ticket.acceptanceCriteria.length > 0 && (
                 <div style={{ marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                   <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>Acceptance Criteria:</div>
-                  {ticketData.acceptanceCriteria.map((criteria, idx) => (
+                  {ticket.acceptanceCriteria.map((criteria, idx) => (
                     <div key={idx} style={{ fontSize: '0.7rem', color: '#94a3b8', marginBottom: '3px', display: 'flex', gap: '6px' }}>
                       <span style={{ color: '#4ade80' }}>✓</span> {criteria}
                     </div>
@@ -142,10 +154,10 @@ export default function FileSummaries({ selectedFile }) {
               )}
               
               {/* Knowledge Check */}
-              {ticketData.knowledgeCheck && ticketData.knowledgeCheck.length > 0 && (
+              {ticket.knowledgeCheck && ticket.knowledgeCheck.length > 0 && (
                 <div>
                   <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>Knowledge Check:</div>
-                  {ticketData.knowledgeCheck.map((q, idx) => (
+                  {ticket.knowledgeCheck.map((q, idx) => (
                     <div key={idx} style={{ fontSize: '0.7rem', color: '#94a3b8', marginBottom: '8px', paddingLeft: '8px', borderLeft: '2px solid #818cf8' }}>
                       <div style={{ marginBottom: '2px' }}><strong>Q{idx + 1}:</strong> {q.question}</div>
                       {q.hint && <div style={{ fontSize: '0.65rem', color: '#64748b', fontStyle: 'italic' }}>Hint: {q.hint}</div>}

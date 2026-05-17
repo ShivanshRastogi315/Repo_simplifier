@@ -3,135 +3,33 @@
   "steps": [
     {
       "stepNumber": 1,
-      "title": "Explore eslint",
-      "targetFile": "secure-event-platform/client/eslint.config.js",
-      "description": "The `eslint.config.js` module encapsulates localized software operations. "
+      "title": "Explore app",
+      "targetFile": "test-multi-lang/app.js",
+      "description": "The `app.js` JavaScript module encapsulates localized software operations. It coordinates 5 behavioral systems handlers."
     },
     {
       "stepNumber": 2,
-      "title": "Explore vite",
-      "targetFile": "secure-event-platform/client/vite.config.js",
-      "description": "The `vite.config.js` module encapsulates localized software operations. "
+      "title": "Explore app",
+      "targetFile": "test-multi-lang/app.py",
+      "description": "The `app.py` Python module encapsulates localized software operations. It coordinates 5 behavioral systems handlers."
     },
     {
       "stepNumber": 3,
-      "title": "Explore db",
-      "targetFile": "secure-event-platform/server/config/db.js",
-      "description": "The `db.js` module encapsulates localized software operations. "
+      "title": "Explore main",
+      "targetFile": "test-multi-lang/main.cpp",
+      "description": "The `main.cpp` C++ module encapsulates localized software operations. "
     },
     {
       "stepNumber": 4,
-      "title": "Explore App",
-      "targetFile": "secure-event-platform/client/src/App.jsx",
-      "description": "The `App.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers."
+      "title": "Explore Program",
+      "targetFile": "test-multi-lang/Program.cs",
+      "description": "The `Program.cs` C# module encapsulates localized software operations. It coordinates 4 behavioral systems handlers."
     },
     {
       "stepNumber": 5,
-      "title": "Explore main",
-      "targetFile": "secure-event-platform/client/src/main.jsx",
-      "description": "The `main.jsx` module encapsulates localized software operations. "
-    },
-    {
-      "stepNumber": 6,
-      "title": "Explore authController",
-      "targetFile": "secure-event-platform/server/controllers/authController.js",
-      "description": "The `authController.js` module encapsulates localized software operations. "
-    },
-    {
-      "stepNumber": 7,
-      "title": "Explore authMiddleware",
-      "targetFile": "secure-event-platform/server/middleware/authMiddleware.js",
-      "description": "The `authMiddleware.js` module encapsulates localized software operations. "
-    },
-    {
-      "stepNumber": 8,
-      "title": "Explore User",
-      "targetFile": "secure-event-platform/server/models/User.js",
-      "description": "The `User.js` module encapsulates localized software operations. "
-    },
-    {
-      "stepNumber": 9,
-      "title": "Explore authRoutes",
-      "targetFile": "secure-event-platform/server/routes/authRoutes.js",
-      "description": "The `authRoutes.js` module encapsulates localized software operations. "
-    },
-    {
-      "stepNumber": 10,
-      "title": "Explore userRoutes",
-      "targetFile": "secure-event-platform/server/routes/userRoutes.js",
-      "description": "The `userRoutes.js` module encapsulates localized software operations. "
-    },
-    {
-      "stepNumber": 11,
-      "title": "Explore server",
-      "targetFile": "secure-event-platform/server/server.js",
-      "description": "The `server.js` module encapsulates localized software operations. "
-    },
-    {
-      "stepNumber": 12,
-      "title": "Explore generateToken",
-      "targetFile": "secure-event-platform/server/utils/generateToken.js",
-      "description": "The `generateToken.js` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers."
-    },
-    {
-      "stepNumber": 13,
-      "title": "Explore DashboardPage",
-      "targetFile": "secure-event-platform/client/src/pages/DashboardPage.jsx",
-      "description": "The `DashboardPage.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers."
-    },
-    {
-      "stepNumber": 14,
-      "title": "Explore HomePage",
-      "targetFile": "secure-event-platform/client/src/pages/HomePage.jsx",
-      "description": "The `HomePage.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers."
-    },
-    {
-      "stepNumber": 15,
-      "title": "Explore LoginPage",
-      "targetFile": "secure-event-platform/client/src/pages/LoginPage.jsx",
-      "description": "The `LoginPage.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers."
-    },
-    {
-      "stepNumber": 16,
-      "title": "Explore RegisterPage",
-      "targetFile": "secure-event-platform/client/src/pages/RegisterPage.jsx",
-      "description": "The `RegisterPage.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers."
-    },
-    {
-      "stepNumber": 17,
-      "title": "Explore Navbar",
-      "targetFile": "secure-event-platform/client/src/components/Navbar.jsx",
-      "description": "The `Navbar.jsx` module encapsulates localized software operations. It coordinates 2 behavioral systems handlers."
-    },
-    {
-      "stepNumber": 18,
-      "title": "Explore ProtectedRoute",
-      "targetFile": "secure-event-platform/client/src/components/ProtectedRoute.jsx",
-      "description": "The `ProtectedRoute.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers."
-    },
-    {
-      "stepNumber": 19,
-      "title": "Explore AuthContext",
-      "targetFile": "secure-event-platform/client/src/context/AuthContext.jsx",
-      "description": "The `AuthContext.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers."
-    },
-    {
-      "stepNumber": 20,
-      "title": "Explore MainLayout",
-      "targetFile": "secure-event-platform/client/src/layouts/MainLayout.jsx",
-      "description": "The `MainLayout.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers."
-    },
-    {
-      "stepNumber": 21,
-      "title": "Explore api",
-      "targetFile": "secure-event-platform/client/src/services/api.js",
-      "description": "The `api.js` module encapsulates localized software operations. "
-    },
-    {
-      "stepNumber": 22,
-      "title": "Explore authService",
-      "targetFile": "secure-event-platform/client/src/services/authService.js",
-      "description": "The `authService.js` module encapsulates localized software operations. "
+      "title": "Explore utils",
+      "targetFile": "test-multi-lang/utils.py",
+      "description": "The `utils.py` Python module encapsulates localized software operations. It coordinates 4 behavioral systems handlers."
     }
   ]
 }

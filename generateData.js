@@ -7,6 +7,7 @@ const ROOT_DIR = __dirname;
 // Helper function to recursively scan directories for all code files
 function getAllCodeFiles(dir, fileList = []) {
   const files = fs.readdirSync(dir);
+  const supportedExtensions = ['.js', '.jsx', '.ts', '.tsx', '.py', '.cpp', '.c', '.h', '.cs', '.html', '.java', '.go', '.rb', '.php'];
   
   files.forEach(file => {
     const filePath = path.join(dir, file);
@@ -17,13 +18,16 @@ function getAllCodeFiles(dir, fileList = []) {
       if (!['node_modules', '.git', 'dist', 'build', 'public', 'assets'].includes(file)) {
         getAllCodeFiles(filePath, fileList);
       }
-    } else if (file.endsWith('.js') || file.endsWith('.jsx') || file.endsWith('.ts') || file.endsWith('.tsx')) {
-      fileList.push({
-        fullPath: filePath,
-        relativePath: path.relative(DUMMY_REPO_DIR, filePath),
-        fileName: file,
-        content: fs.readFileSync(filePath, 'utf-8')
-      });
+    } else {
+      const fileExt = path.extname(file).toLowerCase();
+      if (supportedExtensions.includes(fileExt)) {
+        fileList.push({
+          fullPath: filePath,
+          relativePath: path.relative(DUMMY_REPO_DIR, filePath),
+          fileName: file,
+          content: fs.readFileSync(filePath, 'utf-8')
+        });
+      }
     }
   });
   
@@ -412,10 +416,13 @@ function scanDirectoryRecursively(currentDirPath, accumulatedFiles = []) {
       }
     } else if (itemStats.isFile()) {
       const fileExt = path.extname(item).toLowerCase();
-      if ((fileExt === '.js' || fileExt === '.jsx') && !BLACKLISTED_FILE_NAMES.has(item)) {
+      // Support multiple programming languages
+      const supportedExtensions = ['.js', '.jsx', '.ts', '.tsx', '.py', '.cpp', '.c', '.h', '.cs', '.html', '.java', '.go', '.rb', '.php'];
+      if (supportedExtensions.includes(fileExt) && !BLACKLISTED_FILE_NAMES.has(item)) {
         accumulatedFiles.push({
           absolutePath: fullItemPath,
-          relativePath: path.relative(DUMMY_REPO_DIR, fullItemPath).replace(/\\/g, '/') 
+          relativePath: path.relative(DUMMY_REPO_DIR, fullItemPath).replace(/\\/g, '/'),
+          extension: fileExt
         });
       }
     }
@@ -426,31 +433,156 @@ function scanDirectoryRecursively(currentDirPath, accumulatedFiles = []) {
 function analyzeFileContent(fileMeta, fileText, allFilesList) {
   const fileName = path.basename(fileMeta.relativePath);
   const cleanName = fileName.split('.')[0];
+  const fileExt = fileMeta.extension || path.extname(fileName).toLowerCase();
   
-  const functionRegex = /(?:function\s+([a-zA-Z0-9_]+)|const\s+([a-zA-Z0-9_]+)\s*=\s*(?:\([^)]*\)|[a-zA-Z0-9_]+)\s*=>)/g;
   const discoveredFunctions = [];
   let match;
-  while ((match = functionRegex.exec(fileText)) !== null) {
-    const funcName = match[1] || match[2];
-    if (funcName && !discoveredFunctions.includes(funcName)) {
-      discoveredFunctions.push(funcName);
+  
+  // Multi-language function detection
+  if (fileExt === '.js' || fileExt === '.jsx' || fileExt === '.ts' || fileExt === '.tsx') {
+    // JavaScript/TypeScript: function declarations, arrow functions, class methods
+    const functionRegex = /(?:function\s+([a-zA-Z0-9_]+)|const\s+([a-zA-Z0-9_]+)\s*=\s*(?:\([^)]*\)|[a-zA-Z0-9_]+)\s*=>|(?:async\s+)?([a-zA-Z0-9_]+)\s*\([^)]*\)\s*\{|class\s+([a-zA-Z0-9_]+))/g;
+    while ((match = functionRegex.exec(fileText)) !== null) {
+      const funcName = match[1] || match[2] || match[3] || match[4];
+      if (funcName && !discoveredFunctions.includes(funcName)) {
+        discoveredFunctions.push(funcName);
+      }
+    }
+  } else if (fileExt === '.py') {
+    // Python: def statements and class definitions
+    const pythonFuncRegex = /(?:def\s+([a-zA-Z0-9_]+)|class\s+([a-zA-Z0-9_]+))/g;
+    while ((match = pythonFuncRegex.exec(fileText)) !== null) {
+      const funcName = match[1] || match[2];
+      if (funcName && !discoveredFunctions.includes(funcName)) {
+        discoveredFunctions.push(funcName);
+      }
+    }
+  } else if (fileExt === '.cpp' || fileExt === '.c' || fileExt === '.h') {
+    // C/C++: function definitions and class declarations
+    const cppFuncRegex = /(?:(?:void|int|float|double|char|bool|string|auto)\s+([a-zA-Z0-9_]+)\s*\([^)]*\)|class\s+([a-zA-Z0-9_]+)|struct\s+([a-zA-Z0-9_]+))/g;
+    while ((match = cppFuncRegex.exec(fileText)) !== null) {
+      const funcName = match[1] || match[2] || match[3];
+      if (funcName && !discoveredFunctions.includes(funcName)) {
+        discoveredFunctions.push(funcName);
+      }
+    }
+  } else if (fileExt === '.cs') {
+    // C#: method and class definitions
+    const csharpFuncRegex = /(?:(?:public|private|protected|internal|static|async|virtual|override)\s+)*(?:void|int|string|bool|double|float|var|Task|async\s+Task)\s+([a-zA-Z0-9_]+)\s*\([^)]*\)|(?:public|private|protected|internal)\s+(?:class|interface|struct)\s+([a-zA-Z0-9_]+)/g;
+    while ((match = csharpFuncRegex.exec(fileText)) !== null) {
+      const funcName = match[1] || match[2];
+      if (funcName && !discoveredFunctions.includes(funcName)) {
+        discoveredFunctions.push(funcName);
+      }
+    }
+  } else if (fileExt === '.java') {
+    // Java: method and class definitions
+    const javaFuncRegex = /(?:(?:public|private|protected|static|final|abstract)\s+)*(?:void|int|String|boolean|double|float)\s+([a-zA-Z0-9_]+)\s*\([^)]*\)|(?:public|private|protected)\s+(?:class|interface)\s+([a-zA-Z0-9_]+)/g;
+    while ((match = javaFuncRegex.exec(fileText)) !== null) {
+      const funcName = match[1] || match[2];
+      if (funcName && !discoveredFunctions.includes(funcName)) {
+        discoveredFunctions.push(funcName);
+      }
+    }
+  } else if (fileExt === '.go') {
+    // Go: func declarations
+    const goFuncRegex = /func\s+(?:\([^)]*\)\s+)?([a-zA-Z0-9_]+)\s*\(/g;
+    while ((match = goFuncRegex.exec(fileText)) !== null) {
+      const funcName = match[1];
+      if (funcName && !discoveredFunctions.includes(funcName)) {
+        discoveredFunctions.push(funcName);
+      }
+    }
+  } else if (fileExt === '.rb') {
+    // Ruby: def and class
+    const rubyFuncRegex = /(?:def\s+([a-zA-Z0-9_]+)|class\s+([a-zA-Z0-9_]+))/g;
+    while ((match = rubyFuncRegex.exec(fileText)) !== null) {
+      const funcName = match[1] || match[2];
+      if (funcName && !discoveredFunctions.includes(funcName)) {
+        discoveredFunctions.push(funcName);
+      }
+    }
+  } else if (fileExt === '.php') {
+    // PHP: function and class definitions
+    const phpFuncRegex = /(?:function\s+([a-zA-Z0-9_]+)|class\s+([a-zA-Z0-9_]+))/g;
+    while ((match = phpFuncRegex.exec(fileText)) !== null) {
+      const funcName = match[1] || match[2];
+      if (funcName && !discoveredFunctions.includes(funcName)) {
+        discoveredFunctions.push(funcName);
+      }
     }
   }
 
+  // Multi-language dependency detection
   const dependencies = [];
   allFilesList.forEach(otherFile => {
     if (otherFile.relativePath === fileMeta.relativePath) return;
     const otherFileCleanName = path.basename(otherFile.relativePath).split('.')[0];
-    const importPattern = new RegExp(`(?:import|from|require\\s*\\()\\s*['\"].*\\/${otherFileCleanName}(?:\\.[a-zA-Z0-9]+)?['\"]`, 'i');
     
-    if (importPattern.test(fileText) || fileText.includes(otherFileCleanName)) {
+    let hasImport = false;
+    
+    if (fileExt === '.js' || fileExt === '.jsx' || fileExt === '.ts' || fileExt === '.tsx') {
+      // JavaScript/TypeScript: import, require, from
+      const jsImportPattern = new RegExp(`(?:import|from|require\\s*\\()\\s*['\"].*\\/${otherFileCleanName}(?:\\.[a-zA-Z0-9]+)?['\"]`, 'i');
+      hasImport = jsImportPattern.test(fileText);
+    } else if (fileExt === '.py') {
+      // Python: import, from...import
+      const pyImportPattern = new RegExp(`(?:import\\s+${otherFileCleanName}|from\\s+.*${otherFileCleanName}\\s+import)`, 'i');
+      hasImport = pyImportPattern.test(fileText);
+    } else if (fileExt === '.cpp' || fileExt === '.c' || fileExt === '.h') {
+      // C/C++: #include
+      const cppIncludePattern = new RegExp(`#include\\s*[<"].*${otherFileCleanName}(?:\\.[a-zA-Z0-9]+)?[>"]`, 'i');
+      hasImport = cppIncludePattern.test(fileText);
+    } else if (fileExt === '.cs') {
+      // C#: using
+      const csUsingPattern = new RegExp(`using\\s+.*${otherFileCleanName}`, 'i');
+      hasImport = csUsingPattern.test(fileText);
+    } else if (fileExt === '.java') {
+      // Java: import
+      const javaImportPattern = new RegExp(`import\\s+.*${otherFileCleanName}`, 'i');
+      hasImport = javaImportPattern.test(fileText);
+    } else if (fileExt === '.go') {
+      // Go: import
+      const goImportPattern = new RegExp(`import\\s+.*${otherFileCleanName}`, 'i');
+      hasImport = goImportPattern.test(fileText);
+    } else if (fileExt === '.rb') {
+      // Ruby: require, require_relative
+      const rbRequirePattern = new RegExp(`require(?:_relative)?\\s+['\"].*${otherFileCleanName}['\"]`, 'i');
+      hasImport = rbRequirePattern.test(fileText);
+    } else if (fileExt === '.php') {
+      // PHP: require, include
+      const phpRequirePattern = new RegExp(`(?:require|include)(?:_once)?\\s*\\(?['\"].*${otherFileCleanName}`, 'i');
+      hasImport = phpRequirePattern.test(fileText);
+    }
+    
+    // Fallback: check if filename is mentioned in the code
+    if (hasImport || fileText.includes(otherFileCleanName)) {
       if (!dependencies.includes(otherFile.relativePath)) {
         dependencies.push(otherFile.relativePath);
       }
     }
   });
 
-  let summary = `The \`${fileName}\` module encapsulates localized software operations. `;
+  // Generate language-appropriate summary
+  const languageNames = {
+    '.js': 'JavaScript',
+    '.jsx': 'React JSX',
+    '.ts': 'TypeScript',
+    '.tsx': 'React TypeScript',
+    '.py': 'Python',
+    '.cpp': 'C++',
+    '.c': 'C',
+    '.h': 'C/C++ Header',
+    '.cs': 'C#',
+    '.java': 'Java',
+    '.go': 'Go',
+    '.rb': 'Ruby',
+    '.php': 'PHP',
+    '.html': 'HTML'
+  };
+  
+  const langName = languageNames[fileExt] || 'code';
+  let summary = `The \`${fileName}\` ${langName} module encapsulates localized software operations. `;
   if (discoveredFunctions.length > 0) {
     summary += `It coordinates ${discoveredFunctions.length} behavioral systems handlers.`;
   }

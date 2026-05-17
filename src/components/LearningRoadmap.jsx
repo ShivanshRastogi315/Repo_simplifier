@@ -1,9 +1,40 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Compass, ShieldAlert, Terminal } from 'lucide-react';
-import roadmapData from '../mockData/roadmapData.json';
-import doctorData from '../mockData/doctorData.json';
 
-export default function LearningRoadmap({ onSelectFile, selectedFile }) {
+export default function LearningRoadmap({ onSelectFile, selectedFile, roadmapData, doctorData }) {
+  // Use roadmapData prop directly (it's already the roadmap object from backend)
+  const roadmap = roadmapData || { roadmapTitle: 'Learning Roadmap', steps: [] };
+  
+  // Use doctorData from API response with fallback
+  const doctor = doctorData || {
+    detectedStack: 'Unknown',
+    projectStack: 'Unknown',
+    status: 'Analyzing...',
+    issuesFound: [],
+    setupSteps: [],
+    ports: [],
+    detectedPorts: [],
+    quickStartScript: ''
+  };
+  
+  // Early return if no data
+  if (!roadmapData) {
+    return (
+      <div style={{
+        padding: '20px',
+        color: '#94a3b8',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        gap: '12px'
+      }}>
+        <div style={{ fontSize: '1.2rem', fontWeight: '600' }}>Loading roadmap...</div>
+        <div style={{ fontSize: '0.9rem' }}>Analyzing repository structure</div>
+      </div>
+    );
+  }
   const [runningFix, setRunningFix] = useState(false);
   const [fixed, setFixed] = useState(false);
   const [topHeight, setTopHeight] = useState(50); // Percentage
@@ -100,14 +131,14 @@ export default function LearningRoadmap({ onSelectFile, selectedFile }) {
         }}
       >
         <h2 style={{ fontSize: '1.4rem', marginBottom: '5px', display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700' }}>
-          <Compass color="#48bb78" /> {roadmapData.roadmapTitle}
+          <Compass color="#48bb78" /> {roadmap.roadmapTitle || 'Learning Roadmap'}
         </h2>
         <p style={{ color: '#94a3b8', fontSize: '0.8rem', marginBottom: '15px' }}>
           Follow this sequence to understand the codebase execution flow.
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          {roadmapData.steps.map((step) => {
+          {roadmap.steps?.map((step) => {
             const isSelected = selectedFile === step.targetFile;
             return (
               <div 
@@ -176,11 +207,11 @@ export default function LearningRoadmap({ onSelectFile, selectedFile }) {
           <div style={{ background: '#0f172a', border: '1px solid rgba(56, 189, 248, 0.3)', padding: '10px', borderRadius: '6px', marginBottom: '12px' }}>
             <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginBottom: '4px' }}>DETECTED STACK</div>
             <div style={{ color: '#38bdf8', fontWeight: '700', fontSize: '0.85rem', fontFamily: 'monospace' }}>
-              {doctorData.projectStack}
+              {doctor.detectedStack || doctor.projectStack || 'Unknown'}
             </div>
-            {doctorData.detectedPorts && doctorData.detectedPorts.length > 0 && (
+            {((doctor.ports && doctor.ports.length > 0) || (doctor.detectedPorts && doctor.detectedPorts.length > 0)) && (
               <div style={{ marginTop: '6px', fontSize: '0.75rem', color: '#94a3b8' }}>
-                Ports: {doctorData.detectedPorts.map(p => `localhost:${p}`).join(', ')}
+                Ports: {(doctor.ports || doctor.detectedPorts)?.map(p => `localhost:${p}`).join(', ')}
               </div>
             )}
           </div>
@@ -188,9 +219,9 @@ export default function LearningRoadmap({ onSelectFile, selectedFile }) {
           {/* Issues Found */}
           <div style={{ marginBottom: '12px' }}>
             <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>
-              STATUS: {doctorData.status}
+              STATUS: {doctor.status || 'Unknown'}
             </div>
-            {doctorData.issuesFound.map((issue, idx) => (
+            {doctor.issuesFound?.map((issue, idx) => (
               <div key={idx} style={{
                 background: '#0f172a',
                 border: `1px solid ${issue.severity === 'critical' ? '#ff003c' : issue.severity === 'high' ? '#f59e0b' : issue.severity === 'success' ? '#4ade80' : '#64748b'}`,
@@ -227,12 +258,12 @@ export default function LearningRoadmap({ onSelectFile, selectedFile }) {
           </div>
 
           {/* Setup Steps */}
-          {doctorData.setupSteps && doctorData.setupSteps.length > 0 && (
+          {doctor.setupSteps && doctor.setupSteps.length > 0 && (
             <div style={{ marginBottom: '12px' }}>
               <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>
                 SETUP STEPS
               </div>
-              {doctorData.setupSteps.map((step, idx) => (
+              {doctor.setupSteps?.map((step, idx) => (
                 <div key={idx} style={{
                   fontSize: '0.7rem',
                   color: '#94a3b8',
@@ -247,7 +278,7 @@ export default function LearningRoadmap({ onSelectFile, selectedFile }) {
           )}
 
           {/* Quick Start Script */}
-          {doctorData.quickStartScript && (
+          {doctor.quickStartScript && (
             <div>
               <div style={{ fontSize: '0.75rem', color: '#cbd5e0', fontWeight: 'bold', marginBottom: '6px' }}>
                 QUICK START SCRIPT
@@ -263,7 +294,7 @@ export default function LearningRoadmap({ onSelectFile, selectedFile }) {
                 maxHeight: '150px',
                 overflowY: 'auto'
               }}>
-                {doctorData.quickStartScript}
+                {doctor.quickStartScript}
               </div>
             </div>
           )}

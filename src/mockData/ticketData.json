@@ -1,41 +1,31 @@
 {
-  "ticketId": "AEGIS-114",
-  "title": "Fix Missing Return Statement in authMiddleware.js",
+  "ticketId": "AEGIS-619",
+  "title": "Add JSDoc Comments to test-multi-lang/utils.py",
   "difficulty": "Easy",
-  "type": "middleware_bug",
-  "context": "The middleware file \"secure-event-platform/server/middleware/authMiddleware.js\" contains a critical bug. After sending a 401 response for \"No token\", the function continues executing instead of returning. This causes the middleware to attempt sending multiple responses, leading to \"Cannot set headers after they are sent\" errors.",
-  "instructions": "Open \"secure-event-platform/server/middleware/authMiddleware.js\" and locate the section where it checks \"if (!token)\". Add a \"return\" statement before \"res.status(401).json()\" to prevent further execution after sending the error response. This is a common Express.js middleware pattern that new developers must understand.",
+  "type": "code_review",
+  "context": "The file \"test-multi-lang/utils.py\" contains 4 functions but lacks proper documentation. Adding JSDoc comments will improve code maintainability.",
+  "instructions": "Add JSDoc comments to all functions in \"test-multi-lang/utils.py\". Include @param and @returns tags where applicable. Follow JSDoc standards.",
   "filesToInvestigate": [
-    "secure-event-platform/server/middleware/authMiddleware.js",
-    "server/routes/authRoutes.js",
-    "server/routes/userRoutes.js"
+    "test-multi-lang/utils.py"
   ],
   "acceptanceCriteria": [
-    "Added return statement before res.status(401).json() in the \"No token\" check",
-    "Middleware properly stops execution after sending error response",
-    "No \"headers already sent\" errors in server logs",
-    "Protected routes work correctly with and without tokens"
+    "All functions have JSDoc comments",
+    "Parameters are documented with @param",
+    "Return values documented with @returns",
+    "Comments are clear and helpful"
   ],
   "knowledgeCheck": [
     {
-      "question": "Why is it critical to add a \"return\" statement before sending error responses in Express middleware like authMiddleware.js?",
-      "hint": "Without return, the middleware continues executing and may try to send multiple responses, causing \"Cannot set headers after they are sent\" errors."
+      "question": "What is the primary purpose of the \"helper_function()\" function in utils.py?",
+      "hint": "Executes operational processing for internal runtime sequences."
     },
     {
-      "question": "How does the frontend communicate with the backend API in this full-stack application?",
-      "hint": "Check the services/api.js or services/authService.js files for API base URL configuration and request methods."
+      "question": "How many total files were analyzed in the dummy-repo directory?",
+      "hint": "There are 5 files"
     },
     {
-      "question": "Why is token validation handled in authMiddleware.js middleware instead of directly in the route controllers?",
-      "hint": "Middleware allows reusable authentication logic across multiple routes without code duplication. It follows the separation of concerns principle."
-    },
-    {
-      "question": "What database schema fields are defined in the User.js model, and why is the password field marked as \"required\"?",
-      "hint": "Check the User model schema. The password is required for authentication and is hashed before storage for security."
-    },
-    {
-      "question": "In authController.js, why is bcrypt used to hash passwords before storing them in the database?",
-      "hint": "Bcrypt provides one-way encryption. Even if the database is compromised, attackers cannot retrieve plain-text passwords."
+      "question": "What is the purpose of the generateData.js script in this repository?",
+      "hint": "It recursively scans the dummy-repo, analyzes code structure, and generates visualization data for the onboarding platform."
     }
   ]
 }

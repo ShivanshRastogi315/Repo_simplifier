@@ -1,211 +1,59 @@
 [
   {
-    "filepath": "secure-event-platform/client/eslint.config.js",
-    "summary": "The `eslint.config.js` module encapsulates localized software operations. ",
+    "filepath": "test-multi-lang/app.js",
+    "summary": "The `app.js` JavaScript module encapsulates localized software operations. It coordinates 5 behavioral systems handlers.",
     "keyFunctions": [
       {
-        "name": "defaultConfig",
-        "purpose": "Exposes core layout constants or system assets."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/client/vite.config.js",
-    "summary": "The `vite.config.js` module encapsulates localized software operations. ",
-    "keyFunctions": [
-      {
-        "name": "defaultConfig",
-        "purpose": "Exposes core layout constants or system assets."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/server/config/db.js",
-    "summary": "The `db.js` module encapsulates localized software operations. ",
-    "keyFunctions": [
-      {
-        "name": "defaultConfig",
-        "purpose": "Exposes core layout constants or system assets."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/client/src/App.jsx",
-    "summary": "The `App.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
-    "keyFunctions": [
-      {
-        "name": "App()",
-        "purpose": "Executes operational processing for internal runtime sequences."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/client/src/main.jsx",
-    "summary": "The `main.jsx` module encapsulates localized software operations. ",
-    "keyFunctions": [
-      {
-        "name": "defaultConfig",
-        "purpose": "Exposes core layout constants or system assets."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/server/controllers/authController.js",
-    "summary": "The `authController.js` module encapsulates localized software operations. ",
-    "keyFunctions": [
-      {
-        "name": "defaultConfig",
-        "purpose": "Exposes core layout constants or system assets."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/server/middleware/authMiddleware.js",
-    "summary": "The `authMiddleware.js` module encapsulates localized software operations. ",
-    "keyFunctions": [
-      {
-        "name": "defaultConfig",
-        "purpose": "Exposes core layout constants or system assets."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/server/models/User.js",
-    "summary": "The `User.js` module encapsulates localized software operations. ",
-    "keyFunctions": [
-      {
-        "name": "defaultConfig",
-        "purpose": "Exposes core layout constants or system assets."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/server/routes/authRoutes.js",
-    "summary": "The `authRoutes.js` module encapsulates localized software operations. ",
-    "keyFunctions": [
-      {
-        "name": "defaultConfig",
-        "purpose": "Exposes core layout constants or system assets."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/server/routes/userRoutes.js",
-    "summary": "The `userRoutes.js` module encapsulates localized software operations. ",
-    "keyFunctions": [
-      {
-        "name": "defaultConfig",
-        "purpose": "Exposes core layout constants or system assets."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/server/server.js",
-    "summary": "The `server.js` module encapsulates localized software operations. ",
-    "keyFunctions": [
-      {
-        "name": "defaultConfig",
-        "purpose": "Exposes core layout constants or system assets."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/server/utils/generateToken.js",
-    "summary": "The `generateToken.js` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
-    "keyFunctions": [
-      {
-        "name": "generateToken()",
-        "purpose": "Executes operational processing for internal runtime sequences."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/client/src/pages/DashboardPage.jsx",
-    "summary": "The `DashboardPage.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
-    "keyFunctions": [
-      {
-        "name": "DashboardPage()",
-        "purpose": "Executes operational processing for internal runtime sequences."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/client/src/pages/HomePage.jsx",
-    "summary": "The `HomePage.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
-    "keyFunctions": [
-      {
-        "name": "HomePage()",
-        "purpose": "Executes operational processing for internal runtime sequences."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/client/src/pages/LoginPage.jsx",
-    "summary": "The `LoginPage.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
-    "keyFunctions": [
-      {
-        "name": "LoginPage()",
-        "purpose": "Executes operational processing for internal runtime sequences."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/client/src/pages/RegisterPage.jsx",
-    "summary": "The `RegisterPage.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
-    "keyFunctions": [
-      {
-        "name": "RegisterPage()",
-        "purpose": "Executes operational processing for internal runtime sequences."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/client/src/components/Navbar.jsx",
-    "summary": "The `Navbar.jsx` module encapsulates localized software operations. It coordinates 2 behavioral systems handlers.",
-    "keyFunctions": [
-      {
-        "name": "Navbar()",
+        "name": "DataHandler()",
         "purpose": "Executes operational processing for internal runtime sequences."
       },
       {
-        "name": "logoutHandler()",
+        "name": "constructor()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "addItem()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "processItems()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "main()",
         "purpose": "Executes operational processing for internal runtime sequences."
       }
     ]
   },
   {
-    "filepath": "secure-event-platform/client/src/components/ProtectedRoute.jsx",
-    "summary": "The `ProtectedRoute.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
+    "filepath": "test-multi-lang/app.py",
+    "summary": "The `app.py` Python module encapsulates localized software operations. It coordinates 5 behavioral systems handlers.",
     "keyFunctions": [
       {
-        "name": "ProtectedRoute()",
+        "name": "DataProcessor()",
         "purpose": "Executes operational processing for internal runtime sequences."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/client/src/context/AuthContext.jsx",
-    "summary": "The `AuthContext.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
-    "keyFunctions": [
+      },
       {
-        "name": "AuthProvider()",
+        "name": "__init__()",
         "purpose": "Executes operational processing for internal runtime sequences."
-      }
-    ]
-  },
-  {
-    "filepath": "secure-event-platform/client/src/layouts/MainLayout.jsx",
-    "summary": "The `MainLayout.jsx` module encapsulates localized software operations. It coordinates 1 behavioral systems handlers.",
-    "keyFunctions": [
+      },
       {
-        "name": "MainLayout()",
+        "name": "process_data()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "save_data()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "main()",
         "purpose": "Executes operational processing for internal runtime sequences."
       }
     ]
   },
   {
-    "filepath": "secure-event-platform/client/src/services/api.js",
-    "summary": "The `api.js` module encapsulates localized software operations. ",
+    "filepath": "test-multi-lang/main.cpp",
+    "summary": "The `main.cpp` C++ module encapsulates localized software operations. ",
     "keyFunctions": [
       {
         "name": "defaultConfig",
@@ -214,12 +62,46 @@
     ]
   },
   {
-    "filepath": "secure-event-platform/client/src/services/authService.js",
-    "summary": "The `authService.js` module encapsulates localized software operations. ",
+    "filepath": "test-multi-lang/Program.cs",
+    "summary": "The `Program.cs` C# module encapsulates localized software operations. It coordinates 4 behavioral systems handlers.",
     "keyFunctions": [
       {
-        "name": "defaultConfig",
-        "purpose": "Exposes core layout constants or system assets."
+        "name": "DataProcessor()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "ProcessData()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "CalculateTotal()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "Main()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      }
+    ]
+  },
+  {
+    "filepath": "test-multi-lang/utils.py",
+    "summary": "The `utils.py` Python module encapsulates localized software operations. It coordinates 4 behavioral systems handlers.",
+    "keyFunctions": [
+      {
+        "name": "helper_function()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "validate_input()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "Logger()",
+        "purpose": "Executes operational processing for internal runtime sequences."
+      },
+      {
+        "name": "log()",
+        "purpose": "Executes operational processing for internal runtime sequences."
       }
     ]
   }

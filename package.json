@@ -5,16 +5,35 @@
   "dependencies": {
     "ajv": "^8.20.0",
     "ajv-keywords": "^5.1.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "fs-extra": "^11.3.5",
+    "helmet": "^8.1.0",
+    "joi": "^18.2.1",
     "lucide-react": "^0.300.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "reactflow": "^11.10.1"
+    "reactflow": "^11.10.1",
+    "simple-git": "^3.36.0",
+    "uuid": "^14.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env PORT=3000 react-scripts start",
     "build": "react-scripts build",
-    "onboard": "node generateData.js && react-scripts start"
+    "server": "cross-env SERVER_PORT=5000 node server/index.js",
+    "server:dev": "cross-env SERVER_PORT=5000 nodemon server/index.js",
+    "dev": "concurrently \"npm run server\" \"npm start\"",
+    "onboard": "node generateData.js && cross-env PORT=3000 react-scripts start",
+    "test:integration": "node test-integration.js",
+    "test:api": "cross-env API_URL=http://localhost:5000 node test-integration.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.1.14"
   },
   "browserslist": {
     "production": [

@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { 
-  Github, 
-  Sparkles, 
-  ArrowRight, 
-  AlertCircle, 
-  Loader2, 
+import React, { useState, useRef, useEffect } from 'react';
+import {
+  Github,
+  Sparkles,
+  ArrowRight,
+  AlertCircle,
+  Loader2,
   Zap,
   Code2,
   GitBranch,
@@ -20,7 +20,27 @@ export default function LandingPage({ onAnalysisComplete }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [progress, setProgress] = useState('');
+  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
   const inputSectionRef = useRef(null);
+  const containerRef = useRef(null);
+
+  // Dynamic gradient background effect
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        setMousePosition({ x, y });
+      }
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('mousemove', handleMouseMove);
+      return () => container.removeEventListener('mousemove', handleMouseMove);
+    }
+  }, []);
 
   const validateGitHubUrl = (url) => {
     const githubPattern = /^https?:\/\/(www\.)?github\.com\/[\w-]+\/[\w.-]+\/?$/;
@@ -94,15 +114,44 @@ export default function LandingPage({ onAnalysisComplete }) {
 
   return (
     <div
+      ref={containerRef}
       style={{
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: '#0a0e1a',
-        fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-        position: 'relative'
-      }}
-    >
-      {/* Animated Background Grid */}
+        fontFamily: '"DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        position: 'relative',
+        background: `
+          radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%,
+            rgba(255, 182, 135, 0.5) 0%,
+            transparent 50%),
+          radial-gradient(circle at ${100 - mousePosition.x}% ${100 - mousePosition.y}%,
+            rgba(200, 200, 240, 0.45) 0%,
+            transparent 50%),
+          linear-gradient(135deg,
+            #8FB4D9 0%,
+            #D4C5F5 50%,
+            #FFBE9D 100%)
+        `,
+        transition: 'background 0.3s ease-out'
+      }}>
+      {/* Dynamic Cursor Light Effect */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: `radial-gradient(circle 600px at ${mousePosition.x}% ${mousePosition.y}%,
+          rgba(255, 255, 255, 0.25) 0%,
+          rgba(143, 180, 217, 0.15) 25%,
+          transparent 50%)`,
+        pointerEvents: 'none',
+        zIndex: 1,
+        mixBlendMode: 'overlay',
+        transition: 'background 0.2s ease-out'
+      }} />
+
+      {/* Subtle Background Pattern */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -110,38 +159,12 @@ export default function LandingPage({ onAnalysisComplete }) {
         right: 0,
         bottom: 0,
         backgroundImage: `
-          linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px)
+          linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
         `,
-        backgroundSize: '80px 80px',
+        backgroundSize: '60px 60px',
         pointerEvents: 'none',
-        zIndex: 0
-      }} />
-
-      {/* Gradient Orbs */}
-      <div style={{
-        position: 'fixed',
-        top: '-20%',
-        right: '-10%',
-        width: '600px',
-        height: '600px',
-        background: 'radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%)',
-        borderRadius: '50%',
-        filter: 'blur(60px)',
-        pointerEvents: 'none',
-        zIndex: 0
-      }} />
-      <div style={{
-        position: 'fixed',
-        bottom: '-20%',
-        left: '-10%',
-        width: '500px',
-        height: '500px',
-        background: 'radial-gradient(circle, rgba(129, 140, 248, 0.12) 0%, transparent 70%)',
-        borderRadius: '50%',
-        filter: 'blur(60px)',
-        pointerEvents: 'none',
-        zIndex: 0
+        zIndex: 2
       }} />
 
       {/* Navigation Bar */}
@@ -149,10 +172,11 @@ export default function LandingPage({ onAnalysisComplete }) {
         position: 'sticky',
         top: 0,
         zIndex: 50,
-        backgroundColor: 'rgba(10, 14, 26, 0.8)',
+        backgroundColor: 'rgba(255, 255, 255, 0.85)',
         backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(56, 189, 248, 0.1)',
-        padding: '16px 0'
+        borderBottom: '1px solid #E2E8F0',
+        padding: '16px 0',
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
       }}>
         <div style={{
           maxWidth: '1400px',
@@ -164,11 +188,12 @@ export default function LandingPage({ onAnalysisComplete }) {
         }}>
           {/* Brand */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <Sparkles size={28} color="#38bdf8" strokeWidth={2.5} />
+            <Sparkles size={28} color="#4338CA" strokeWidth={2.5} />
             <span style={{
               fontSize: '1.5rem',
               fontWeight: '800',
-              background: 'linear-gradient(135deg, #38bdf8, #818cf8)',
+              fontFamily: '"Outfit", sans-serif',
+              background: 'linear-gradient(135deg, #4338CA, #3730A3)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -185,15 +210,15 @@ export default function LandingPage({ onAnalysisComplete }) {
                 key={item}
                 href={`#${item.toLowerCase().replace(/\s/g, '-')}`}
                 style={{
-                  color: '#94a3b8',
+                  color: '#64748B',
                   fontSize: '0.95rem',
                   fontWeight: '500',
                   textDecoration: 'none',
                   transition: 'color 0.2s',
                   cursor: 'pointer'
                 }}
-                onMouseEnter={(e) => e.target.style.color = '#38bdf8'}
-                onMouseLeave={(e) => e.target.style.color = '#94a3b8'}
+                onMouseEnter={(e) => e.target.style.color = '#B4C6EA'}
+                onMouseLeave={(e) => e.target.style.color = '#64748B'}
               >
                 {item}
               </a>
@@ -203,7 +228,7 @@ export default function LandingPage({ onAnalysisComplete }) {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                color: '#94a3b8',
+                color: '#64748B',
                 fontSize: '0.95rem',
                 fontWeight: '500',
                 textDecoration: 'none',
@@ -212,8 +237,8 @@ export default function LandingPage({ onAnalysisComplete }) {
                 gap: '6px',
                 transition: 'color 0.2s'
               }}
-              onMouseEnter={(e) => e.target.style.color = '#38bdf8'}
-              onMouseLeave={(e) => e.target.style.color = '#94a3b8'}
+              onMouseEnter={(e) => e.target.style.color = '#B4C6EA'}
+              onMouseLeave={(e) => e.target.style.color = '#64748B'}
             >
               <Github size={18} />
               GitHub
@@ -227,24 +252,26 @@ export default function LandingPage({ onAnalysisComplete }) {
               padding: '10px 24px',
               fontSize: '0.95rem',
               fontWeight: '600',
-              color: '#fff',
-              background: 'linear-gradient(135deg, #38bdf8, #3b82f6)',
+              color: '#FFFFFF',
+              background: '#6B7FBE',
               border: 'none',
-              borderRadius: '8px',
+              borderRadius: '10px',
               cursor: 'pointer',
               transition: 'all 0.3s',
-              boxShadow: '0 4px 20px rgba(56, 189, 248, 0.3)',
+              boxShadow: '0 2px 8px rgba(107, 127, 190, 0.3)',
               display: 'flex',
               alignItems: 'center',
               gap: '8px'
             }}
             onMouseEnter={(e) => {
               e.target.style.transform = 'translateY(-2px)';
-              e.target.style.boxShadow = '0 6px 25px rgba(56, 189, 248, 0.4)';
+              e.target.style.boxShadow = '0 6px 16px rgba(107, 127, 190, 0.4)';
+              e.target.style.background = '#5A6DAD';
             }}
             onMouseLeave={(e) => {
               e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 4px 20px rgba(56, 189, 248, 0.3)';
+              e.target.style.boxShadow = '0 2px 8px rgba(107, 127, 190, 0.3)';
+              e.target.style.background = '#6B7FBE';
             }}
           >
             Launch App
@@ -268,13 +295,14 @@ export default function LandingPage({ onAnalysisComplete }) {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            padding: '8px 16px',
-            backgroundColor: 'rgba(56, 189, 248, 0.1)',
-            border: '1px solid rgba(56, 189, 248, 0.2)',
+            padding: '8px 20px',
+            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+            backdropFilter: 'blur(12px)',
+            border: '2px solid rgba(99, 102, 241, 0.2)',
             borderRadius: '50px',
             marginBottom: '32px',
             fontSize: '0.85rem',
-            color: '#38bdf8',
+            color: '#3730A3',
             fontWeight: '600'
           }}>
             <Zap size={14} />
@@ -285,18 +313,16 @@ export default function LandingPage({ onAnalysisComplete }) {
           <h1 style={{
             fontSize: 'clamp(3rem, 8vw, 5.5rem)',
             fontWeight: '900',
+            fontFamily: '"Outfit", sans-serif',
             lineHeight: '1.1',
             margin: '0 0 24px 0',
-            background: 'linear-gradient(135deg, #ffffff 0%, #94a3b8 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            color: '#1F2937',
             letterSpacing: '-2px'
           }}>
             Deconstruct Any Codebase.
             <br />
             <span style={{
-              background: 'linear-gradient(135deg, #38bdf8, #818cf8)',
+              background: 'linear-gradient(135deg, #4F46E5, #2563EB)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
@@ -308,7 +334,7 @@ export default function LandingPage({ onAnalysisComplete }) {
           {/* Subheadline */}
           <p style={{
             fontSize: '1.35rem',
-            color: '#94a3b8',
+            color: '#64748B',
             maxWidth: '800px',
             margin: '0 auto 48px',
             lineHeight: '1.6',
@@ -324,19 +350,25 @@ export default function LandingPage({ onAnalysisComplete }) {
             style={{
               background: 'none',
               border: 'none',
-              color: '#38bdf8',
+              color: '#4338CA',
               cursor: 'pointer',
               display: 'inline-flex',
               flexDirection: 'column',
               alignItems: 'center',
               gap: '8px',
               fontSize: '0.9rem',
-              fontWeight: '600',
+              fontWeight: '700',
               transition: 'all 0.3s',
               marginBottom: '60px'
             }}
-            onMouseEnter={(e) => e.target.style.transform = 'translateY(4px)'}
-            onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'translateY(4px)';
+              e.target.style.color = '#3730A3';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.color = '#4338CA';
+            }}
           >
             Get Started
             <ChevronDown size={24} style={{ animation: 'bounce 2s infinite' }} />
@@ -354,36 +386,33 @@ export default function LandingPage({ onAnalysisComplete }) {
             gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
             gap: '24px',
             padding: '48px',
-            backgroundColor: 'rgba(30, 41, 59, 0.4)',
-            backdropFilter: 'blur(20px)',
-            borderRadius: '20px',
-            border: '1px solid rgba(56, 189, 248, 0.1)',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)'
+            backgroundColor: '#F9FAFB',
+            borderRadius: '32px',
+            border: '2px solid #E8D5E8',
+            boxShadow: '0 4px 20px rgba(180, 198, 234, 0.15)'
           }}>
             {[
-              { value: '95%', label: 'Onboarding Time Saved', icon: <Zap size={32} /> },
-              { value: '<1s', label: 'Local Heuristic Analysis', icon: <Code2 size={32} /> },
-              { value: '100%', label: 'Self-Contained Engine', icon: <CheckCircle2 size={32} /> },
-              { value: '1 Click', label: 'Visual Dependency Map', icon: <GitBranch size={32} /> }
+              { value: '95%', label: 'Onboarding Time Saved', icon: <Zap size={32} />, color: '#B4C6EA' },
+              { value: '<1s', label: 'Local Heuristic Analysis', icon: <Code2 size={32} />, color: '#F5D0C5' },
+              { value: '100%', label: 'Self-Contained Engine', icon: <CheckCircle2 size={32} />, color: '#B4C6EA' },
+              { value: '1 Click', label: 'Visual Dependency Map', icon: <GitBranch size={32} />, color: '#F5D0C5' }
             ].map((metric, idx) => (
               <div key={idx} style={{ textAlign: 'center' }}>
-                <div style={{ color: '#38bdf8', marginBottom: '12px', display: 'flex', justifyContent: 'center' }}>
+                <div style={{ color: metric.color, marginBottom: '12px', display: 'flex', justifyContent: 'center' }}>
                   {metric.icon}
                 </div>
                 <div style={{
                   fontSize: '3rem',
                   fontWeight: '900',
-                  background: 'linear-gradient(135deg, #38bdf8, #818cf8)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
+                  fontFamily: '"Outfit", sans-serif',
+                  color: '#2D3748',
                   marginBottom: '8px',
                   letterSpacing: '-1px'
                 }}>
                   {metric.value}
                 </div>
                 <div style={{
-                  color: '#94a3b8',
+                  color: '#64748B',
                   fontSize: '0.95rem',
                   fontWeight: '500'
                 }}>
@@ -405,24 +434,24 @@ export default function LandingPage({ onAnalysisComplete }) {
           }}
         >
           <div style={{
-            backgroundColor: 'rgba(30, 41, 59, 0.5)',
-            backdropFilter: 'blur(20px)',
-            borderRadius: '24px',
+            backgroundColor: '#EDF2F7',
+            borderRadius: '32px',
             padding: '48px',
-            border: '1px solid rgba(56, 189, 248, 0.15)',
-            boxShadow: '0 25px 70px rgba(0, 0, 0, 0.4)'
+            border: '2px solid #D4C5F5',
+            boxShadow: '0 8px 30px rgba(159, 179, 219, 0.2)'
           }}>
             <h2 style={{
               fontSize: '2rem',
               fontWeight: '700',
-              color: '#fff',
+              fontFamily: '"Outfit", sans-serif',
+              color: '#1F2937',
               marginBottom: '12px',
               textAlign: 'center'
             }}>
               Analyze Your Repository
             </h2>
             <p style={{
-              color: '#94a3b8',
+              color: '#64748B',
               fontSize: '1rem',
               marginBottom: '32px',
               textAlign: 'center'
@@ -444,7 +473,7 @@ export default function LandingPage({ onAnalysisComplete }) {
                       left: '16px',
                       top: '50%',
                       transform: 'translateY(-50%)',
-                      color: '#64748b',
+                      color: '#94A3B8',
                       pointerEvents: 'none'
                     }}
                   />
@@ -458,20 +487,20 @@ export default function LandingPage({ onAnalysisComplete }) {
                       width: '100%',
                       padding: '16px 16px 16px 48px',
                       fontSize: '1rem',
-                      backgroundColor: 'rgba(15, 23, 42, 0.8)',
-                      border: error ? '2px solid #ef4444' : '2px solid rgba(56, 189, 248, 0.2)',
-                      borderRadius: '12px',
-                      color: '#fff',
+                      backgroundColor: '#F9FAFB',
+                      border: error ? '2px solid #F87171' : '2px solid #D4C5F5',
+                      borderRadius: '16px',
+                      color: '#2D3748',
                       outline: 'none',
                       transition: 'all 0.2s',
                       boxSizing: 'border-box',
                       fontFamily: 'inherit'
                     }}
                     onFocus={(e) => {
-                      if (!error) e.target.style.borderColor = '#38bdf8';
+                      if (!error) e.target.style.borderColor = '#B4C6EA';
                     }}
                     onBlur={(e) => {
-                      if (!error) e.target.style.borderColor = 'rgba(56, 189, 248, 0.2)';
+                      if (!error) e.target.style.borderColor = '#E2E8F0';
                     }}
                   />
                 </div>
@@ -482,10 +511,8 @@ export default function LandingPage({ onAnalysisComplete }) {
                     padding: '16px 32px',
                     fontSize: '1rem',
                     fontWeight: '600',
-                    color: '#fff',
-                    background: isLoading 
-                      ? 'rgba(71, 85, 105, 0.5)' 
-                      : 'linear-gradient(135deg, #38bdf8, #3b82f6)',
+                    color: '#2D3748',
+                    background: isLoading ? '#CBD5E1' : '#B4C6EA',
                     border: 'none',
                     borderRadius: '12px',
                     cursor: isLoading ? 'not-allowed' : 'pointer',
@@ -493,19 +520,21 @@ export default function LandingPage({ onAnalysisComplete }) {
                     alignItems: 'center',
                     gap: '8px',
                     transition: 'all 0.2s',
-                    boxShadow: isLoading ? 'none' : '0 4px 20px rgba(56, 189, 248, 0.4)',
+                    boxShadow: isLoading ? 'none' : '0 2px 8px rgba(180, 198, 234, 0.3)',
                     whiteSpace: 'nowrap'
                   }}
                   onMouseEnter={(e) => {
                     if (!isLoading) {
                       e.target.style.transform = 'translateY(-2px)';
-                      e.target.style.boxShadow = '0 6px 25px rgba(56, 189, 248, 0.5)';
+                      e.target.style.boxShadow = '0 4px 12px rgba(180, 198, 234, 0.4)';
+                      e.target.style.background = '#9FB3DB';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isLoading) {
                       e.target.style.transform = 'translateY(0)';
-                      e.target.style.boxShadow = '0 4px 20px rgba(56, 189, 248, 0.4)';
+                      e.target.style.boxShadow = '0 2px 8px rgba(180, 198, 234, 0.3)';
+                      e.target.style.background = '#B4C6EA';
                     }
                   }}
                 >
@@ -530,11 +559,11 @@ export default function LandingPage({ onAnalysisComplete }) {
                   alignItems: 'center',
                   gap: '10px',
                   padding: '14px 16px',
-                  backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                  backgroundColor: 'rgba(248, 113, 113, 0.1)',
+                  border: '1px solid rgba(248, 113, 113, 0.3)',
                   borderRadius: '10px',
                   marginBottom: '20px',
-                  color: '#fca5a5'
+                  color: '#DC2626'
                 }}>
                   <AlertCircle size={20} />
                   <span style={{ fontSize: '0.95rem' }}>{error}</span>
@@ -548,11 +577,11 @@ export default function LandingPage({ onAnalysisComplete }) {
                   alignItems: 'center',
                   gap: '12px',
                   padding: '14px 16px',
-                  backgroundColor: 'rgba(56, 189, 248, 0.1)',
-                  border: '1px solid rgba(56, 189, 248, 0.3)',
+                  backgroundColor: 'rgba(180, 198, 234, 0.1)',
+                  border: '1px solid rgba(180, 198, 234, 0.3)',
                   borderRadius: '10px',
                   marginBottom: '20px',
-                  color: '#7dd3fc'
+                  color: '#7B92C0'
                 }}>
                   <Loader2 size={20} style={{ animation: 'spin 1s linear infinite' }} />
                   <span style={{ fontSize: '0.95rem' }}>{progress}</span>
@@ -563,10 +592,10 @@ export default function LandingPage({ onAnalysisComplete }) {
             {/* Example Repositories */}
             <div style={{ 
               paddingTop: '24px', 
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)'
+              borderTop: '1px solid #E2E8F0'
             }}>
               <p style={{ 
-                color: '#64748b', 
+                color: '#94A3B8', 
                 fontSize: '0.9rem', 
                 marginBottom: '12px',
                 fontWeight: '500'
@@ -582,26 +611,26 @@ export default function LandingPage({ onAnalysisComplete }) {
                     style={{
                       padding: '8px 16px',
                       fontSize: '0.85rem',
-                      color: '#94a3b8',
-                      backgroundColor: 'rgba(15, 23, 42, 0.6)',
-                      border: '1px solid rgba(56, 189, 248, 0.15)',
-                      borderRadius: '8px',
+                      color: '#64748B',
+                      backgroundColor: '#F9FAFB',
+                      border: '2px solid #E8D5E8',
+                      borderRadius: '12px',
                       cursor: isLoading ? 'not-allowed' : 'pointer',
                       transition: 'all 0.2s',
                       fontWeight: '500'
                     }}
                     onMouseEnter={(e) => {
                       if (!isLoading) {
-                        e.target.style.backgroundColor = 'rgba(56, 189, 248, 0.15)';
-                        e.target.style.color = '#38bdf8';
-                        e.target.style.borderColor = 'rgba(56, 189, 248, 0.3)';
+                        e.target.style.backgroundColor = 'rgba(180, 198, 234, 0.1)';
+                        e.target.style.color = '#B4C6EA';
+                        e.target.style.borderColor = '#B4C6EA';
                       }
                     }}
                     onMouseLeave={(e) => {
                       if (!isLoading) {
-                        e.target.style.backgroundColor = 'rgba(15, 23, 42, 0.6)';
-                        e.target.style.color = '#94a3b8';
-                        e.target.style.borderColor = 'rgba(56, 189, 248, 0.15)';
+                        e.target.style.backgroundColor = '#F8FAFC';
+                        e.target.style.color = '#64748B';
+                        e.target.style.borderColor = '#E2E8F0';
                       }
                     }}
                   >
@@ -626,7 +655,8 @@ export default function LandingPage({ onAnalysisComplete }) {
             <h2 style={{
               fontSize: '3rem',
               fontWeight: '800',
-              color: '#fff',
+              fontFamily: '"Outfit", sans-serif',
+              color: '#1F2937',
               marginBottom: '16px',
               letterSpacing: '-1px'
             }}>
@@ -634,7 +664,7 @@ export default function LandingPage({ onAnalysisComplete }) {
             </h2>
             <p style={{
               fontSize: '1.2rem',
-              color: '#94a3b8',
+              color: '#64748B',
               maxWidth: '700px',
               margin: '0 auto'
             }}>
@@ -652,72 +682,73 @@ export default function LandingPage({ onAnalysisComplete }) {
                 icon: <Code2 size={40} />,
                 title: 'Dynamic AST Parser',
                 description: 'Traces real imports, function calls, and relationships natively across multiple languages.',
-                gradient: 'linear-gradient(135deg, #38bdf8, #3b82f6)'
+                color: '#B4C6EA'
               },
               {
                 icon: <FileSearch size={40} />,
                 title: 'Environment Doctor',
                 description: 'Instantly scans configurations, detects tech stacks, and highlights missing .env parameters.',
-                gradient: 'linear-gradient(135deg, #818cf8, #a78bfa)'
+                color: '#F5D0C5'
               },
               {
                 icon: <Map size={40} />,
                 title: 'Topological Roadmaps',
                 description: 'Chronologically structures a developer\'s learning path step-by-step through the codebase.',
-                gradient: 'linear-gradient(135deg, #06b6d4, #0891b2)'
+                color: '#B4C6EA'
               },
               {
                 icon: <GitBranch size={40} />,
                 title: 'Interactive File Inspector',
                 description: 'Inspect isolated modules by interacting directly with visual layout nodes in real-time.',
-                gradient: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
+                color: '#F5D0C5'
               }
             ].map((feature, idx) => (
               <div
                 key={idx}
                 style={{
                   padding: '40px',
-                  backgroundColor: 'rgba(30, 41, 59, 0.4)',
-                  backdropFilter: 'blur(20px)',
-                  borderRadius: '20px',
-                  border: '1px solid rgba(56, 189, 248, 0.1)',
+                  backgroundColor: '#F9FAFB',
+                  borderRadius: '28px',
+                  border: '2px solid #E8D5E8',
                   transition: 'all 0.3s',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 8px rgba(180, 198, 234, 0.12)'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.3)';
-                  e.currentTarget.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.4)';
+                  e.currentTarget.style.borderColor = feature.color;
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.08)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.1)';
-                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.borderColor = '#E2E8F0';
+                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
                 }}
               >
                 <div style={{
                   width: '64px',
                   height: '64px',
                   borderRadius: '16px',
-                  background: feature.gradient,
+                  backgroundColor: `${feature.color}20`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '24px',
-                  color: '#fff'
+                  color: feature.color
                 }}>
                   {feature.icon}
                 </div>
                 <h3 style={{
                   fontSize: '1.4rem',
                   fontWeight: '700',
-                  color: '#fff',
+                  fontFamily: '"Outfit", sans-serif',
+                  color: '#1F2937',
                   marginBottom: '12px'
                 }}>
                   {feature.title}
                 </h3>
                 <p style={{
-                  color: '#94a3b8',
+                  color: '#64748B',
                   fontSize: '1rem',
                   lineHeight: '1.6'
                 }}>
@@ -738,17 +769,18 @@ export default function LandingPage({ onAnalysisComplete }) {
           }}
         >
           <div style={{
-            backgroundColor: 'rgba(30, 41, 59, 0.4)',
-            backdropFilter: 'blur(20px)',
-            borderRadius: '24px',
+            backgroundColor: '#EDF2F7',
+            borderRadius: '32px',
             padding: '64px',
-            border: '1px solid rgba(56, 189, 248, 0.1)',
-            textAlign: 'center'
+            border: '2px solid #D4C5F5',
+            textAlign: 'center',
+            boxShadow: '0 4px 20px rgba(159, 179, 219, 0.15)'
           }}>
             <h2 style={{
               fontSize: '3rem',
               fontWeight: '800',
-              color: '#fff',
+              fontFamily: '"Outfit", sans-serif',
+              color: '#1F2937',
               marginBottom: '48px',
               letterSpacing: '-1px'
             }}>
@@ -770,25 +802,24 @@ export default function LandingPage({ onAnalysisComplete }) {
                   <div style={{
                     fontSize: '3rem',
                     fontWeight: '900',
-                    background: 'linear-gradient(135deg, #38bdf8, #818cf8)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
+                    fontFamily: '"Outfit", sans-serif',
+                    color: '#818CF8',
                     marginBottom: '16px',
-                    opacity: 0.3
+                    opacity: 1
                   }}>
                     {item.step}
                   </div>
                   <h3 style={{
                     fontSize: '1.3rem',
                     fontWeight: '700',
-                    color: '#fff',
+                    fontFamily: '"Outfit", sans-serif',
+                    color: '#1F2937',
                     marginBottom: '8px'
                   }}>
                     {item.title}
                   </h3>
                   <p style={{
-                    color: '#94a3b8',
+                    color: '#64748B',
                     fontSize: '1rem',
                     lineHeight: '1.6'
                   }}>
@@ -813,14 +844,15 @@ export default function LandingPage({ onAnalysisComplete }) {
           <h2 style={{
             fontSize: '2.5rem',
             fontWeight: '800',
-            color: '#fff',
+            fontFamily: '"Outfit", sans-serif',
+            color: '#1F2937',
             marginBottom: '16px'
           }}>
             Built with Modern Tech
           </h2>
           <p style={{
             fontSize: '1.1rem',
-            color: '#94a3b8',
+            color: '#64748B',
             marginBottom: '48px'
           }}>
             Powered by industry-leading tools and frameworks
@@ -828,7 +860,7 @@ export default function LandingPage({ onAnalysisComplete }) {
           <div style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: '32px',
+            gap: '16px',
             flexWrap: 'wrap'
           }}>
             {['React', 'Node.js', 'AST Parsing', 'D3.js', 'Express', 'Git'].map((tech) => (
@@ -836,23 +868,29 @@ export default function LandingPage({ onAnalysisComplete }) {
                 key={tech}
                 style={{
                   padding: '16px 32px',
-                  backgroundColor: 'rgba(30, 41, 59, 0.4)',
-                  backdropFilter: 'blur(20px)',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(56, 189, 248, 0.15)',
-                  color: '#94a3b8',
+                  backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                  borderRadius: '16px',
+                  border: '2px solid #D4C5F5',
+                  color: '#475569',
                   fontSize: '1rem',
                   fontWeight: '600',
                   transition: 'all 0.2s',
-                  cursor: 'default'
+                  cursor: 'default',
+                  boxShadow: '0 2px 8px rgba(107, 127, 190, 0.15)'
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.borderColor = 'rgba(56, 189, 248, 0.4)';
-                  e.target.style.color = '#38bdf8';
+                  e.target.style.borderColor = '#6B7FBE';
+                  e.target.style.color = '#334155';
+                  e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 16px rgba(107, 127, 190, 0.25)';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.borderColor = 'rgba(56, 189, 248, 0.15)';
-                  e.target.style.color = '#94a3b8';
+                  e.target.style.borderColor = '#D4C5F5';
+                  e.target.style.color = '#475569';
+                  e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 2px 8px rgba(107, 127, 190, 0.15)';
                 }}
               >
                 {tech}
@@ -868,14 +906,14 @@ export default function LandingPage({ onAnalysisComplete }) {
           padding: '0 40px'
         }}>
           <div style={{
-            background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1))',
-            backdropFilter: 'blur(20px)',
+            background: 'linear-gradient(135deg, rgba(180, 198, 234, 0.15), rgba(245, 208, 197, 0.15))',
             borderRadius: '24px',
             padding: '80px 40px',
-            border: '1px solid rgba(56, 189, 248, 0.2)',
+            border: '1px solid #E2E8F0',
             textAlign: 'center',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)'
           }}>
             <div style={{
               position: 'absolute',
@@ -883,14 +921,15 @@ export default function LandingPage({ onAnalysisComplete }) {
               left: '-50%',
               width: '200%',
               height: '200%',
-              background: 'radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(180, 198, 234, 0.1) 0%, transparent 70%)',
               animation: 'pulse 4s ease-in-out infinite'
             }} />
             <div style={{ position: 'relative', zIndex: 1 }}>
               <h2 style={{
                 fontSize: '3.5rem',
                 fontWeight: '900',
-                color: '#fff',
+                fontFamily: '"Outfit", sans-serif',
+                color: '#1F2937',
                 marginBottom: '24px',
                 letterSpacing: '-1px'
               }}>
@@ -900,7 +939,7 @@ export default function LandingPage({ onAnalysisComplete }) {
               </h2>
               <p style={{
                 fontSize: '1.2rem',
-                color: '#94a3b8',
+                color: '#64748B',
                 marginBottom: '40px',
                 maxWidth: '600px',
                 margin: '0 auto 40px'
@@ -913,24 +952,26 @@ export default function LandingPage({ onAnalysisComplete }) {
                   padding: '18px 48px',
                   fontSize: '1.1rem',
                   fontWeight: '700',
-                  color: '#fff',
-                  background: 'linear-gradient(135deg, #38bdf8, #3b82f6)',
+                  color: '#FFFFFF',
+                  background: '#6B7FBE',
                   border: 'none',
-                  borderRadius: '12px',
+                  borderRadius: '16px',
                   cursor: 'pointer',
                   transition: 'all 0.3s',
-                  boxShadow: '0 8px 30px rgba(56, 189, 248, 0.4)',
+                  boxShadow: '0 4px 16px rgba(107, 127, 190, 0.4)',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '12px'
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.transform = 'translateY(-4px)';
-                  e.target.style.boxShadow = '0 12px 40px rgba(56, 189, 248, 0.5)';
+                  e.target.style.boxShadow = '0 8px 24px rgba(107, 127, 190, 0.5)';
+                  e.target.style.background = '#5A6DAD';
                 }}
                 onMouseLeave={(e) => {
                   e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = '0 8px 30px rgba(56, 189, 248, 0.4)';
+                  e.target.style.boxShadow = '0 4px 16px rgba(107, 127, 190, 0.4)';
+                  e.target.style.background = '#6B7FBE';
                 }}
               >
                 Get Started Free
@@ -942,9 +983,10 @@ export default function LandingPage({ onAnalysisComplete }) {
 
         {/* Footer */}
         <footer style={{
-          borderTop: '1px solid rgba(56, 189, 248, 0.1)',
+          borderTop: '1px solid #E2E8F0',
           padding: '40px',
-          textAlign: 'center'
+          textAlign: 'center',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)'
         }}>
           <div style={{
             maxWidth: '1400px',
@@ -956,20 +998,18 @@ export default function LandingPage({ onAnalysisComplete }) {
             gap: '20px'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <Sparkles size={24} color="#38bdf8" />
+              <Sparkles size={24} color="#4338CA" />
               <span style={{
                 fontSize: '1.2rem',
                 fontWeight: '700',
-                background: 'linear-gradient(135deg, #38bdf8, #818cf8)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
+                fontFamily: '"Outfit", sans-serif',
+                color: '#1F2937'
               }}>
                 FlowBase
               </span>
             </div>
             <div style={{
-              color: '#64748b',
+              color: '#94A3B8',
               fontSize: '0.9rem'
             }}>
               © 2026 FlowBase. Built with precision.
@@ -978,20 +1018,20 @@ export default function LandingPage({ onAnalysisComplete }) {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               style={{
                 padding: '8px 20px',
-                backgroundColor: 'rgba(56, 189, 248, 0.1)',
-                border: '1px solid rgba(56, 189, 248, 0.2)',
+                backgroundColor: 'rgba(180, 198, 234, 0.15)',
+                border: '1px solid #B4C6EA',
                 borderRadius: '8px',
-                color: '#38bdf8',
+                color: '#B4C6EA',
                 fontSize: '0.9rem',
                 fontWeight: '600',
                 cursor: 'pointer',
                 transition: 'all 0.2s'
               }}
               onMouseEnter={(e) => {
-                e.target.style.backgroundColor = 'rgba(56, 189, 248, 0.2)';
+                e.target.style.backgroundColor = 'rgba(180, 198, 234, 0.25)';
               }}
               onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'rgba(56, 189, 248, 0.1)';
+                e.target.style.backgroundColor = 'rgba(180, 198, 234, 0.15)';
               }}
             >
               Back to Top ↑
@@ -1000,9 +1040,8 @@ export default function LandingPage({ onAnalysisComplete }) {
         </footer>
       </main>
 
-      {/* CSS Animations & Custom Scrollbar Styles */}
+      {/* CSS Animations */}
       <style>{`
-        /* Animations */
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
@@ -1014,58 +1053,6 @@ export default function LandingPage({ onAnalysisComplete }) {
         @keyframes pulse {
           0%, 100% { opacity: 0.5; }
           50% { opacity: 1; }
-        }
-
-        /* Custom Premium Scrollbar - Chrome, Safari, Opera */
-        .custom-scroll::-webkit-scrollbar {
-          width: 10px;
-        }
-
-        .custom-scroll::-webkit-scrollbar-track {
-          background: transparent;
-        }
-
-        .custom-scroll::-webkit-scrollbar-thumb {
-          background-color: rgba(156, 163, 175, 0.3);
-          border-radius: 20px;
-          border: 2px solid transparent;
-          background-clip: padding-box;
-          transition: background-color 0.3s ease;
-        }
-
-        .custom-scroll::-webkit-scrollbar-thumb:hover {
-          background-color: rgba(156, 163, 175, 0.5);
-        }
-
-        /* Custom Premium Scrollbar - Firefox */
-        .custom-scroll {
-          scrollbar-width: thin;
-          scrollbar-color: rgba(156, 163, 175, 0.3) transparent;
-        }
-
-        /* Utility: Minimalist scrollbar for nested sections */
-        .minimal-scrollbar::-webkit-scrollbar {
-          width: 6px;
-          height: 6px;
-        }
-
-        .minimal-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-
-        .minimal-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(56, 189, 248, 0.2);
-          border-radius: 3px;
-          transition: background 0.3s ease;
-        }
-
-        .minimal-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(56, 189, 248, 0.4);
-        }
-
-        .minimal-scrollbar {
-          scrollbar-width: thin;
-          scrollbar-color: rgba(56, 189, 248, 0.2) transparent;
         }
       `}</style>
     </div>

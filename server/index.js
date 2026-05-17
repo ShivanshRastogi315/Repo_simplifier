@@ -19,7 +19,31 @@ app.use(helmet());
 
 // CORS configuration
 const corsOptions = {
-  origin: NODE_ENV === 'production' ? FRONTEND_URL : '*',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // In development, allow all origins
+    if (NODE_ENV !== 'production') return callback(null, true);
+    
+    // In production, allow configured frontend URL and Vercel preview URLs
+    const allowedOrigins = [
+      FRONTEND_URL,
+      /\.vercel\.app$/,  // Allow all Vercel preview deployments
+    ];
+    
+    const isAllowed = allowedOrigins.some(allowed => {
+      if (typeof allowed === 'string') return origin === allowed;
+      if (allowed instanceof RegExp) return allowed.test(origin);
+      return false;
+    });
+    
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   optionsSuccessStatus: 200,
 };

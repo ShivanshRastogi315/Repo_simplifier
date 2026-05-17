@@ -8,44 +8,49 @@
 html, body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
   background-color: #0f172a;
 }
 
 #root {
   margin: 0;
   padding: 0;
+  width: 100%;
+  min-height: 100%;
 }
 
-/* Custom Blue-Themed Scrollbar */
+/* Custom Premium Scrollbar - Global */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.5);
-  border-radius: 4px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #38bdf8, #3b82f6);
-  border-radius: 4px;
-  transition: background 0.3s ease;
+  background-color: rgba(156, 163, 175, 0.3);
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #0ea5e9, #2563eb);
-}
-
-::-webkit-scrollbar-thumb:active {
-  background: linear-gradient(135deg, #0284c7, #1d4ed8);
+  background-color: rgba(156, 163, 175, 0.5);
 }
 
 /* Firefox Scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #38bdf8 rgba(15, 23, 42, 0.5);
+  scrollbar-color: rgba(156, 163, 175, 0.3) transparent;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
 }
 
 /* Resizable Divider Styling */

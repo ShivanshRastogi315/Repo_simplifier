@@ -120,14 +120,16 @@ export default function LearningRoadmap({ onSelectFile, selectedFile, roadmapDat
       }}
     >
       {/* Top Section: Hierarchical Architecture Map */}
-      <div 
+      <div
         ref={architectureRef}
-        className="smooth-scroll"
-        style={{ 
+        className="smooth-scroll bg-slate-800/50 backdrop-blur-md rounded-xl border border-slate-700 border-t-2 border-t-cyan-500/60"
+        style={{
           height: `${topHeight}%`,
           overflowY: 'auto',
           padding: '20px',
-          boxSizing: 'border-box'
+          boxSizing: 'border-box',
+          margin: '16px',
+          boxShadow: '0 4px 20px rgba(6, 182, 212, 0.05)'
         }}
       >
         <h2 style={{ fontSize: '1.4rem', marginBottom: '5px', display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700' }}>
@@ -185,14 +187,16 @@ export default function LearningRoadmap({ onSelectFile, selectedFile, roadmapDat
       />
 
       {/* Bottom Section: Environment Doctor */}
-      <div 
+      <div
         ref={doctorRef}
-        className="smooth-scroll"
-        style={{ 
+        className="smooth-scroll bg-slate-800/50 backdrop-blur-md rounded-xl border border-slate-700 border-t-2 border-t-emerald-500/60"
+        style={{
           height: `${100 - topHeight}%`,
           overflowY: 'auto',
           padding: '20px',
-          boxSizing: 'border-box'
+          boxSizing: 'border-box',
+          margin: '0 16px 16px 16px',
+          boxShadow: '0 4px 20px rgba(16, 185, 129, 0.05)'
         }}
       >
         <div style={{ background: 'rgba(30, 41, 59, 0.4)', border: '1px solid rgba(255,255,255,0.05)', padding: '15px', borderRadius: '12px' }}>

@@ -20,19 +20,23 @@ export default function FileSummaries({ selectedFile, summariesData, ticketData 
   const fileInfo = explainData.find(item => item.filepath === selectedFile);
 
   return (
-    <div style={{ 
-      padding: '20px 20px 30px 20px', 
-      color: '#fff', 
-      height: 'calc(100vh - 65px)', /* Matches the left column baseline */
-      display: 'flex', 
-      flexDirection: 'column', 
-      boxSizing: 'border-box',
-      overflow: 'hidden'
-    }}>
+    <div
+      className="bg-slate-800/50 backdrop-blur-md rounded-xl border border-slate-700 border-t-2 border-t-indigo-500/60"
+      style={{
+        padding: '20px 20px 30px 20px',
+        color: '#fff',
+        height: 'calc(100vh - 65px)', /* Matches the left column baseline */
+        display: 'flex',
+        flexDirection: 'column',
+        boxSizing: 'border-box',
+        overflow: 'hidden',
+        margin: '16px',
+        boxShadow: '0 4px 20px rgba(99, 102, 241, 0.05)'
+      }}>
       
       {/* Top Segment Header */}
       <h2 style={{ fontSize: '1.4rem', marginBottom: '15px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700', flexShrink: 0 }}>
-        <FileCode color="#38bdf8" /> File Inspector
+        <FileCode color="#818cf8" /> File Inspector
       </h2>
       
       {/* Scrollable File Content Box */}
